@@ -1,2 +1,7 @@
 X can't play twice
 Test winning condition
+O can play
+Cannot play same position
+Row or column cannot be < 1 or > 3
+
+Done:
