@@ -2,17 +2,29 @@ package dev.matko.tictactoe
 
 import dev.matko.tictactoe.exceptions.PlayedTwiceException
 
-class Game {
+class Game(val victoryListener: VictoryListener? = null) {
+
+    interface VictoryListener {
+        fun onVictory(sign: Sign)
+    }
 
     private var board: String = "........."
+    private var turn = Sign.X
 
     fun playX(row: Int, column: Int) {
-        if (countX() - countO() >= 1) {
+
+        if (turn == Sign.O) {
             throw PlayedTwiceException()
         }
 
         val index = (row - 1) * 3 + (column - 1)
-        board = board.replaceRange(index, index, "X")
+        board = board.replaceRange(index..index, "X")
+
+        if (board.substring(0..2) == "XXX") {
+            victoryListener?.onVictory(Sign.X)
+        }
+
+        turn = Sign.O
     }
 
     fun logBoard(): String {
@@ -21,11 +33,10 @@ class Game {
         }
     }
 
-    private fun countX(): Int {
-        return board.count { character -> character == 'X' }
-    }
+    fun playO(row: Int, column: Int) {
+        val index = (row - 1) * 3 + (column - 1)
+        board = board.replaceRange(index..index, "0")
 
-    private fun countO(): Int {
-        return board.count { character -> character == 'O' }
+        this.turn = Sign.X
     }
 }

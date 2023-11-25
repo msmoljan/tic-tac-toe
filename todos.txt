@@ -1,7 +1,16 @@
-X can't play twice
-Test winning condition
+Test winning condition first row
+Test winning condition second row
+Test winning condition 3rd row
+Test winning condition first row
+Test winning condition second row
+Test winning condition 3rd row
+Test winning condition first row
+Test winning condition second row
+Test winning condition 3rd row
+
 O can play
 Cannot play same position
 Row or column cannot be < 1 or > 3
 
 Done:
+X can't play twice
