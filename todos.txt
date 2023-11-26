@@ -1,7 +1,5 @@
-X must play first
-Refactor to avoid specifying sign during play to reduce errors
-
 Done:
+Refactor to avoid specifying sign during play to reduce errors
 Can play X after a game reset
 Board is all "." after a game reset
 Cannot play after win
