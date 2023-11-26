@@ -1,9 +1,9 @@
 Wrong turn (e.g. O plays when it's X's turn)
-Board is all "." after a reset game
-Can play X after a reset game
+Can play X after a game reset
 X must play first
 
 Done:
+Board is all "." after a game reset
 Cannot play after win
 Forbid overwriting an already played field
 Column cannot be > 3

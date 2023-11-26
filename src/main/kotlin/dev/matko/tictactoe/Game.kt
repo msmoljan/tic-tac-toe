@@ -4,13 +4,15 @@ import dev.matko.tictactoe.exceptions.CannotPlayAfterFinishedGameException
 import dev.matko.tictactoe.exceptions.FieldAlreadyPlayedException
 import dev.matko.tictactoe.exceptions.PlayedTwiceException
 
+private const val INITIAL_BOARD = "........."
+
 class Game(val victoryListener: VictoryListener? = null) {
 
     interface VictoryListener {
         fun onVictory(sign: Sign)
     }
 
-    private var board: String = "........."
+    private var board: String = INITIAL_BOARD
     private var turn = Sign.X
     private var winner: Sign? = null
 
@@ -29,7 +31,7 @@ class Game(val victoryListener: VictoryListener? = null) {
     }
 
     fun reset() {
-        TODO("Not yet implemented")
+        board = INITIAL_BOARD
     }
 
     private fun playSign(sign: Sign, row: Int, column: Int) {
