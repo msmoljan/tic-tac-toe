@@ -279,4 +279,15 @@ class GameTest {
 
         assertEquals("...\n...\n...", game.logBoard())
     }
+
+    @Test
+    fun `X can play after a game reset`() {
+        val game = Game()
+
+        game.playX(row = 1, column = 1)
+        game.reset()
+        game.playX(row = 2, column = 1)
+
+        assertEquals("...\nX..\n...", game.logBoard())
+    }
 }

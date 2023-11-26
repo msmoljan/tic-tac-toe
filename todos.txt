@@ -1,8 +1,8 @@
-Wrong turn (e.g. O plays when it's X's turn)
-Can play X after a game reset
 X must play first
+Refactor to avoid specifying sign during play to reduce errors
 
 Done:
+Can play X after a game reset
 Board is all "." after a game reset
 Cannot play after win
 Forbid overwriting an already played field

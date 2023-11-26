@@ -31,7 +31,9 @@ class Game(val victoryListener: VictoryListener? = null) {
     }
 
     fun reset() {
-        board = INITIAL_BOARD
+        this.board = INITIAL_BOARD
+        this.turn = Sign.X
+        this.winner = null
     }
 
     private fun playSign(sign: Sign, row: Int, column: Int) {
