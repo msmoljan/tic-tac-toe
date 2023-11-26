@@ -205,4 +205,15 @@ class GameTest {
 
         assertEquals(1, victoryListener.xWins)
     }
+
+    @Test
+    fun `A field cannot be played twice in a game`() {
+        val game = Game()
+
+        game.playX(row = 2, column = 2)
+
+        assertThrows<FieldAlreadyPlayedException> {
+            game.playO(row = 2, column = 2)
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package dev.matko.tictactoe
 
+import dev.matko.tictactoe.exceptions.FieldAlreadyPlayedException
 import dev.matko.tictactoe.exceptions.PlayedTwiceException
 
 class Game(val victoryListener: VictoryListener? = null) {
@@ -20,8 +21,13 @@ class Game(val victoryListener: VictoryListener? = null) {
     }
 
     fun playSign(sign: Sign, row: Int, column: Int) {
+
         if (turn != sign) {
             throw PlayedTwiceException()
+        }
+
+        if (getSign(row, column) != ".") {
+            throw FieldAlreadyPlayedException(row, column, sign)
         }
 
         val index = getBoardCharacterIndex(row, column)
@@ -73,15 +79,11 @@ class Game(val victoryListener: VictoryListener? = null) {
         }
     }
 
-    private fun getLeftToRightDiagonal(): String {
-        return board[0].toString() + board[4] + board[8]
-    }
+    private fun getSign(row: Int, column: Int) = board[getBoardCharacterIndex(row, column)].toString()
 
-    private fun getRightToLeftDiagonal(): String {
-        return board[2].toString() + board[4] + board[6]
-    }
+    private fun getLeftToRightDiagonal() = board[0].toString() + board[4] + board[8]
 
-    private fun getBoardCharacterIndex(row: Int, column: Int): Int {
-        return (row - 1) * 3 + (column - 1)
-    }
+    private fun getRightToLeftDiagonal() = board[2].toString() + board[4] + board[6]
+
+    private fun getBoardCharacterIndex(row: Int, column: Int) = (row - 1) * 3 + (column - 1)
 }
