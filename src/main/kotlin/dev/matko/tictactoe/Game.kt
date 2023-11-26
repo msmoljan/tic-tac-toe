@@ -5,7 +5,7 @@ import dev.matko.tictactoe.exceptions.FieldAlreadyPlayedException
 
 private const val INITIAL_BOARD = "........."
 
-class Game(val victoryListener: VictoryListener? = null) {
+class Game(private val victoryListener: VictoryListener? = null) {
 
     interface VictoryListener {
         fun onVictory(sign: Sign)
