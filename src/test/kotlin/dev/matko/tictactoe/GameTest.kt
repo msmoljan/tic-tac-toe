@@ -35,7 +35,9 @@ class GameTest {
             var xWins = 0
 
             override fun onVictory(sign: Sign) {
-                xWins++
+                if (sign == Sign.X) {
+                    xWins++
+                }
             }
         }
         val game = Game(victoryListener)
