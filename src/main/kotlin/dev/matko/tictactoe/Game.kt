@@ -22,7 +22,7 @@ class Game(val victoryListener: VictoryListener? = null) {
 
     fun playSign(sign: Sign, row: Int, column: Int) {
 
-        if (row < 1) {
+        if (row < 1 || column < 1) {
             throw NonexistentFieldException(row, column)
         }
 

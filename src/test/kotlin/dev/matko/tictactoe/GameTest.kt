@@ -225,4 +225,13 @@ class GameTest {
             game.playX(row = 0, column = 2)
         }
     }
+
+    @Test
+    fun `A column number cannot be smaller than 1`() {
+        val game = Game()
+
+        assertThrows<NonexistentFieldException> {
+            game.playX(row = 1, column = 0)
+        }
+    }
 }
