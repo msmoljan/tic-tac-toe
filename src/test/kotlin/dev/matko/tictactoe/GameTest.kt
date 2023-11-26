@@ -268,4 +268,15 @@ class GameTest {
             game.playO(row = 3, column = 3)
         }
     }
+
+    @Test
+    fun `The board is emptied after the game has been reset`() {
+        val game = Game()
+
+        game.playX(row = 1, column = 1)
+        game.playO(row = 2, column = 1)
+        game.reset()
+
+        assertEquals("...\n...\n...", game.logBoard())
+    }
 }

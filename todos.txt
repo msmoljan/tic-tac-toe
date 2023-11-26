@@ -1,5 +1,6 @@
 Wrong turn (e.g. O plays when it's X's turn)
-reset game
+Board is all "." after a reset game
+Can play X after a reset game
 X must play first
 
 Done:

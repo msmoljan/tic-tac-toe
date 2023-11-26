@@ -28,6 +28,10 @@ class Game(val victoryListener: VictoryListener? = null) {
         }
     }
 
+    fun reset() {
+        TODO("Not yet implemented")
+    }
+
     private fun playSign(sign: Sign, row: Int, column: Int) {
 
         if (row < 1 || column < 1 || row > 3 || column > 3) {
