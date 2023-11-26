@@ -1,16 +1,18 @@
-Test winning condition second row
-Test winning condition 3rd row
-Test winning condition first row
-Test winning condition second row
-Test winning condition 3rd row
-Test winning condition first row
-Test winning condition second row
-Test winning condition 3rd row
+Test winning condition first diagonal
+Test winning condition second diagonal
 
 O can play
 Cannot play same position
 Row or column cannot be < 1 or > 3
+Forbit overwriting an already played field
+cannot play after win
+reset game
 
 Done:
 X can't play twice
 Test winning condition first row
+Test winning condition second row
+Test winning condition 3rd row
+Test winning condition first column
+Test winning condition second column
+Test winning condition 3rd column
