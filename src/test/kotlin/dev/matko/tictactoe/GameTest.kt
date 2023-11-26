@@ -51,8 +51,6 @@ class GameTest {
         assertEquals(1, victoryListener.xWins)
     }
 
-
-
     @Test
     fun `The game is won if the second row is all in the same sign`() {
         val victoryListener = object : Game.VictoryListener {
@@ -71,6 +69,28 @@ class GameTest {
         game.playX(row = 2, column = 2)
         game.playO(row = 1, column = 2)
         game.playX(row = 2, column = 3)
+
+        assertEquals(1, victoryListener.xWins)
+    }
+
+    @Test
+    fun `The game is won if the third row is all in the same sign`() {
+        val victoryListener = object : Game.VictoryListener {
+            var xWins = 0
+
+            override fun onVictory(sign: Sign) {
+                if (sign == Sign.X) {
+                    xWins++
+                }
+            }
+        }
+        val game = Game(victoryListener)
+
+        game.playX(row = 3, column = 1)
+        game.playO(row = 1, column = 1)
+        game.playX(row = 3, column = 2)
+        game.playO(row = 1, column = 2)
+        game.playX(row = 3, column = 3)
 
         assertEquals(1, victoryListener.xWins)
     }
