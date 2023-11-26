@@ -12,17 +12,30 @@ class Game(val victoryListener: VictoryListener? = null) {
     private var turn = Sign.X
 
     fun playX(row: Int, column: Int) {
+        playSign(Sign.X, row, column)
+    }
 
-        if (turn == Sign.O) {
+    fun playO(row: Int, column: Int) {
+        playSign(Sign.O, row, column)
+    }
+
+    fun playSign(sign: Sign, row: Int, column: Int) {
+        if (turn != sign) {
             throw PlayedTwiceException()
         }
 
-        val index = (row - 1) * 3 + (column - 1)
-        board = board.replaceRange(index..index, "X")
+        val index = getBoardCharacterIndex(row, column)
+        board = board.replaceRange(index..index, sign.name)
 
-        checkIfWon(Sign.X)
+        checkIfWon(sign)
 
-        turn = Sign.O
+        turn = if (sign == Sign.X) Sign.O else Sign.X
+    }
+
+    fun logBoard(): String {
+        return board.run {
+            substring(0..2) + "\n" + substring(3..5) + "\n" + substring(6..8)
+        }
     }
 
     private fun checkIfWon(sign: Sign) {
@@ -68,16 +81,7 @@ class Game(val victoryListener: VictoryListener? = null) {
         return board[2].toString() + board[4] + board[6]
     }
 
-    fun logBoard(): String {
-        return board.run {
-            substring(0..2) + "\n" + substring(3..5) + "\n" + substring(6..8)
-        }
-    }
-
-    fun playO(row: Int, column: Int) {
-        val index = (row - 1) * 3 + (column - 1)
-        board = board.replaceRange(index..index, "0")
-
-        this.turn = Sign.X
+    private fun getBoardCharacterIndex(row: Int, column: Int): Int {
+        return (row - 1) * 3 + (column - 1)
     }
 }

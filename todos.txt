@@ -1,11 +1,12 @@
-O can play
 Cannot play same position
 Row or column cannot be < 1 or > 3
 Forbid overwriting an already played field
 cannot play after win
+Wrong turn (e.g. O plays when it's X's turn)
 reset game
 
 Done:
+O can play
 Test winning condition right-to-left diagonal
 Test winning condition left-to-right diagonal
 X can't play twice
