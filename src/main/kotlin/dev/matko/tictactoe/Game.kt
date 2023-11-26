@@ -22,6 +22,10 @@ class Game(val victoryListener: VictoryListener? = null) {
 
     fun playSign(sign: Sign, row: Int, column: Int) {
 
+        if (row < 1) {
+            throw NonexistentFieldException(row, column)
+        }
+
         if (turn != sign) {
             throw PlayedTwiceException()
         }
