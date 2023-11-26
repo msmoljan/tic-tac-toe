@@ -2,6 +2,7 @@ package dev.matko.tictactoe
 
 import dev.matko.tictactoe.exceptions.CannotPlayAfterFinishedGameException
 import dev.matko.tictactoe.exceptions.FieldAlreadyPlayedException
+import dev.matko.tictactoe.exceptions.NonexistentFieldException
 
 private const val INITIAL_BOARD = "........."
 

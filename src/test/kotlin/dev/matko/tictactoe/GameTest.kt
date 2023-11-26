@@ -2,7 +2,7 @@ package dev.matko.tictactoe
 
 import dev.matko.tictactoe.exceptions.CannotPlayAfterFinishedGameException
 import dev.matko.tictactoe.exceptions.FieldAlreadyPlayedException
-import dev.matko.tictactoe.exceptions.PlayedTwiceException
+import dev.matko.tictactoe.exceptions.NonexistentFieldException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
