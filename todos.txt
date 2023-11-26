@@ -1,14 +1,13 @@
-Test winning condition first diagonal
-Test winning condition second diagonal
-
+Test winning condition right-to-left diagonal
 O can play
 Cannot play same position
 Row or column cannot be < 1 or > 3
-Forbit overwriting an already played field
+Forbid overwriting an already played field
 cannot play after win
 reset game
 
 Done:
+Test winning condition left-to-right diagonal
 X can't play twice
 Test winning condition first row
 Test winning condition second row

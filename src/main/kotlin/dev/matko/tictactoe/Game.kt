@@ -35,6 +35,7 @@ class Game(val victoryListener: VictoryListener? = null) {
             getColumn(1),
             getColumn(2),
             getColumn(3),
+            getLeftToRightDiagonal(),
         ).any { it == signAsString.repeat(3) }
 
         if (didSignWinWin) {
@@ -56,6 +57,10 @@ class Game(val victoryListener: VictoryListener? = null) {
             2 -> board[1].toString() + board[4] + board[7]
             else -> board[2].toString() + board[5] + board[8]
         }
+    }
+
+    private fun getLeftToRightDiagonal(): String {
+        return board[0].toString() + board[4] + board[8]
     }
 
     fun logBoard(): String {
