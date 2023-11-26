@@ -1,4 +1,3 @@
-Row cannot be > 3
 Column cannot be > 3
 Forbid overwriting an already played field
 Cannot play after win
@@ -7,6 +6,7 @@ reset game
 X must play first
 
 Done:
+Row cannot be > 3
 Column cannot be < 1
 Row cannot be < 1
 Cannot play same position
