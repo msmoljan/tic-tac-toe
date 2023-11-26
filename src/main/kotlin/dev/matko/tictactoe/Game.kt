@@ -1,5 +1,6 @@
 package dev.matko.tictactoe
 
+import dev.matko.tictactoe.exceptions.CannotPlayAfterFinishedGameException
 import dev.matko.tictactoe.exceptions.FieldAlreadyPlayedException
 import dev.matko.tictactoe.exceptions.PlayedTwiceException
 
@@ -11,6 +12,7 @@ class Game(val victoryListener: VictoryListener? = null) {
 
     private var board: String = "........."
     private var turn = Sign.X
+    private var winner: Sign? = null
 
     fun playX(row: Int, column: Int) {
         playSign(Sign.X, row, column)
@@ -20,7 +22,13 @@ class Game(val victoryListener: VictoryListener? = null) {
         playSign(Sign.O, row, column)
     }
 
-    fun playSign(sign: Sign, row: Int, column: Int) {
+    fun logBoard(): String {
+        return board.run {
+            substring(0..2) + "\n" + substring(3..5) + "\n" + substring(6..8)
+        }
+    }
+
+    private fun playSign(sign: Sign, row: Int, column: Int) {
 
         if (row < 1 || column < 1 || row > 3 || column > 3) {
             throw NonexistentFieldException(row, column)
@@ -34,24 +42,25 @@ class Game(val victoryListener: VictoryListener? = null) {
             throw FieldAlreadyPlayedException(row, column, sign)
         }
 
+        winner?.let { winner ->
+            throw CannotPlayAfterFinishedGameException(winner)
+        }
+
         val index = getBoardCharacterIndex(row, column)
         board = board.replaceRange(index..index, sign.name)
 
-        checkIfWon(sign)
+        if (hasWon(sign)) {
+            this.winner = sign
+            victoryListener?.onVictory(sign)
+        }
 
         turn = if (sign == Sign.X) Sign.O else Sign.X
     }
 
-    fun logBoard(): String {
-        return board.run {
-            substring(0..2) + "\n" + substring(3..5) + "\n" + substring(6..8)
-        }
-    }
+    private fun hasWon(sign: Sign): Boolean {
+        val signAsString = sign.name
 
-    private fun checkIfWon(sign: Sign) {
-        val signAsString = if (sign == Sign.X) "X" else "O"
-
-        val didSignWinWin = arrayOf(
+        return arrayOf(
             getRow(1),
             getRow(2),
             getRow(3),
@@ -61,10 +70,6 @@ class Game(val victoryListener: VictoryListener? = null) {
             getLeftToRightDiagonal(),
             getRightToLeftDiagonal(),
         ).any { it == signAsString.repeat(3) }
-
-        if (didSignWinWin) {
-            victoryListener?.onVictory(sign)
-        }
     }
 
     private fun getRow(row: Int): String {

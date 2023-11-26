@@ -1,11 +1,11 @@
-Column cannot be > 3
-Forbid overwriting an already played field
-Cannot play after win
 Wrong turn (e.g. O plays when it's X's turn)
 reset game
 X must play first
 
 Done:
+Cannot play after win
+Forbid overwriting an already played field
+Column cannot be > 3
 Row cannot be > 3
 Column cannot be < 1
 Row cannot be < 1

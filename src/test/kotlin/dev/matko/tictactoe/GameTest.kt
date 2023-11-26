@@ -1,5 +1,6 @@
 package dev.matko.tictactoe
 
+import dev.matko.tictactoe.exceptions.CannotPlayAfterFinishedGameException
 import dev.matko.tictactoe.exceptions.FieldAlreadyPlayedException
 import dev.matko.tictactoe.exceptions.PlayedTwiceException
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -250,6 +251,21 @@ class GameTest {
 
         assertThrows<NonexistentFieldException> {
             game.playX(row = 3, column = 4)
+        }
+    }
+
+    @Test
+    fun `Cannot play after the game is won`() {
+        val game = Game()
+
+        game.playX(row = 1, column = 1)
+        game.playO(row = 2, column = 1)
+        game.playX(row = 1, column = 2)
+        game.playO(row = 2, column = 2)
+        game.playX(row = 1, column = 3)
+
+        assertThrows<CannotPlayAfterFinishedGameException> {
+            game.playO(row = 3, column = 3)
         }
     }
 }
