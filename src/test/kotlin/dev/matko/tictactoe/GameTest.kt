@@ -9,26 +9,13 @@ import org.junit.jupiter.api.assertThrows
 
 class GameTest {
 
-    lateinit var game: Game
-
     @Test
     fun `A player can add an X to a field`() {
         val game = Game()
 
-        game.playX(row = 1, column = 1)
+        game.play(row = 1, column = 1)
 
         assertEquals("X..\n...\n...", game.logBoard())
-    }
-
-    @Test
-    fun `A player can't add an X twice in a row`() {
-        val game = Game()
-
-        game.playX(row = 1, column = 1)
-
-        assertThrows<PlayedTwiceException> {
-            game.playX(row = 1, column = 3)
-        }
     }
 
     @Test
@@ -44,11 +31,11 @@ class GameTest {
         }
         val game = Game(victoryListener)
 
-        game.playX(row = 1, column = 1)
-        game.playO(row = 2, column = 1)
-        game.playX(row = 1, column = 2)
-        game.playO(row = 2, column = 2)
-        game.playX(row = 1, column = 3)
+        game.play(row = 1, column = 1)
+        game.play(row = 2, column = 1)
+        game.play(row = 1, column = 2)
+        game.play(row = 2, column = 2)
+        game.play(row = 1, column = 3)
 
         assertEquals(1, victoryListener.xWins)
     }
@@ -66,11 +53,11 @@ class GameTest {
         }
         val game = Game(victoryListener)
 
-        game.playX(row = 2, column = 1)
-        game.playO(row = 1, column = 1)
-        game.playX(row = 2, column = 2)
-        game.playO(row = 1, column = 2)
-        game.playX(row = 2, column = 3)
+        game.play(row = 2, column = 1)
+        game.play(row = 1, column = 1)
+        game.play(row = 2, column = 2)
+        game.play(row = 1, column = 2)
+        game.play(row = 2, column = 3)
 
         assertEquals(1, victoryListener.xWins)
     }
@@ -88,11 +75,11 @@ class GameTest {
         }
         val game = Game(victoryListener)
 
-        game.playX(row = 3, column = 1)
-        game.playO(row = 1, column = 1)
-        game.playX(row = 3, column = 2)
-        game.playO(row = 1, column = 2)
-        game.playX(row = 3, column = 3)
+        game.play(row = 3, column = 1)
+        game.play(row = 1, column = 1)
+        game.play(row = 3, column = 2)
+        game.play(row = 1, column = 2)
+        game.play(row = 3, column = 3)
 
         assertEquals(1, victoryListener.xWins)
     }
@@ -110,11 +97,11 @@ class GameTest {
         }
         val game = Game(victoryListener)
 
-        game.playX(row = 1, column = 1)
-        game.playO(row = 1, column = 2)
-        game.playX(row = 2, column = 1)
-        game.playO(row = 1, column = 3)
-        game.playX(row = 3, column = 1)
+        game.play(row = 1, column = 1)
+        game.play(row = 1, column = 2)
+        game.play(row = 2, column = 1)
+        game.play(row = 1, column = 3)
+        game.play(row = 3, column = 1)
 
         assertEquals(1, victoryListener.xWins)
     }
@@ -132,11 +119,11 @@ class GameTest {
         }
         val game = Game(victoryListener)
 
-        game.playX(row = 1, column = 2)
-        game.playO(row = 1, column = 1)
-        game.playX(row = 2, column = 2)
-        game.playO(row = 2, column = 1)
-        game.playX(row = 3, column = 2)
+        game.play(row = 1, column = 2)
+        game.play(row = 1, column = 1)
+        game.play(row = 2, column = 2)
+        game.play(row = 2, column = 1)
+        game.play(row = 3, column = 2)
 
         assertEquals(1, victoryListener.xWins)
     }
@@ -154,11 +141,11 @@ class GameTest {
         }
         val game = Game(victoryListener)
 
-        game.playX(row = 1, column = 3)
-        game.playO(row = 1, column = 1)
-        game.playX(row = 2, column = 3)
-        game.playO(row = 2, column = 1)
-        game.playX(row = 3, column = 3)
+        game.play(row = 1, column = 3)
+        game.play(row = 1, column = 1)
+        game.play(row = 2, column = 3)
+        game.play(row = 2, column = 1)
+        game.play(row = 3, column = 3)
 
         assertEquals(1, victoryListener.xWins)
     }
@@ -176,11 +163,11 @@ class GameTest {
         }
         val game = Game(victoryListener)
 
-        game.playX(row = 1, column = 1)
-        game.playO(row = 1, column = 2)
-        game.playX(row = 2, column = 2)
-        game.playO(row = 2, column = 1)
-        game.playX(row = 3, column = 3)
+        game.play(row = 1, column = 1)
+        game.play(row = 1, column = 2)
+        game.play(row = 2, column = 2)
+        game.play(row = 2, column = 1)
+        game.play(row = 3, column = 3)
 
         assertEquals(1, victoryListener.xWins)
     }
@@ -198,11 +185,11 @@ class GameTest {
         }
         val game = Game(victoryListener)
 
-        game.playX(row = 1, column = 3)
-        game.playO(row = 1, column = 2)
-        game.playX(row = 2, column = 2)
-        game.playO(row = 2, column = 1)
-        game.playX(row = 3, column = 1)
+        game.play(row = 1, column = 3)
+        game.play(row = 1, column = 2)
+        game.play(row = 2, column = 2)
+        game.play(row = 2, column = 1)
+        game.play(row = 3, column = 1)
 
         assertEquals(1, victoryListener.xWins)
     }
@@ -211,10 +198,10 @@ class GameTest {
     fun `A field cannot be played twice in a game`() {
         val game = Game()
 
-        game.playX(row = 2, column = 2)
+        game.play(row = 2, column = 2)
 
         assertThrows<FieldAlreadyPlayedException> {
-            game.playO(row = 2, column = 2)
+            game.play(row = 2, column = 2)
         }
     }
 
@@ -223,7 +210,7 @@ class GameTest {
         val game = Game()
 
         assertThrows<NonexistentFieldException> {
-            game.playX(row = 0, column = 2)
+            game.play(row = 0, column = 2)
         }
     }
 
@@ -232,7 +219,7 @@ class GameTest {
         val game = Game()
 
         assertThrows<NonexistentFieldException> {
-            game.playX(row = 1, column = 0)
+            game.play(row = 1, column = 0)
         }
     }
 
@@ -241,7 +228,7 @@ class GameTest {
         val game = Game()
 
         assertThrows<NonexistentFieldException> {
-            game.playX(row = 4, column = 1)
+            game.play(row = 4, column = 1)
         }
     }
 
@@ -250,7 +237,7 @@ class GameTest {
         val game = Game()
 
         assertThrows<NonexistentFieldException> {
-            game.playX(row = 3, column = 4)
+            game.play(row = 3, column = 4)
         }
     }
 
@@ -258,14 +245,14 @@ class GameTest {
     fun `Cannot play after the game is won`() {
         val game = Game()
 
-        game.playX(row = 1, column = 1)
-        game.playO(row = 2, column = 1)
-        game.playX(row = 1, column = 2)
-        game.playO(row = 2, column = 2)
-        game.playX(row = 1, column = 3)
+        game.play(row = 1, column = 1)
+        game.play(row = 2, column = 1)
+        game.play(row = 1, column = 2)
+        game.play(row = 2, column = 2)
+        game.play(row = 1, column = 3)
 
         assertThrows<CannotPlayAfterFinishedGameException> {
-            game.playO(row = 3, column = 3)
+            game.play(row = 3, column = 3)
         }
     }
 
@@ -273,8 +260,8 @@ class GameTest {
     fun `The board is emptied after the game has been reset`() {
         val game = Game()
 
-        game.playX(row = 1, column = 1)
-        game.playO(row = 2, column = 1)
+        game.play(row = 1, column = 1)
+        game.play(row = 2, column = 1)
         game.reset()
 
         assertEquals("...\n...\n...", game.logBoard())
@@ -284,9 +271,9 @@ class GameTest {
     fun `X can play after a game reset`() {
         val game = Game()
 
-        game.playX(row = 1, column = 1)
+        game.play(row = 1, column = 1)
         game.reset()
-        game.playX(row = 2, column = 1)
+        game.play(row = 2, column = 1)
 
         assertEquals("...\nX..\n...", game.logBoard())
     }

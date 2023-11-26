@@ -2,7 +2,6 @@ package dev.matko.tictactoe
 
 import dev.matko.tictactoe.exceptions.CannotPlayAfterFinishedGameException
 import dev.matko.tictactoe.exceptions.FieldAlreadyPlayedException
-import dev.matko.tictactoe.exceptions.PlayedTwiceException
 
 private const val INITIAL_BOARD = "........."
 
@@ -16,12 +15,30 @@ class Game(val victoryListener: VictoryListener? = null) {
     private var turn = Sign.X
     private var winner: Sign? = null
 
-    fun playX(row: Int, column: Int) {
-        playSign(Sign.X, row, column)
-    }
+    fun play(row: Int, column: Int) {
 
-    fun playO(row: Int, column: Int) {
-        playSign(Sign.O, row, column)
+        if (row < 1 || column < 1 || row > 3 || column > 3) {
+            throw NonexistentFieldException(row, column)
+        }
+
+        val existingSignAtField = getSign(row, column)
+        if (existingSignAtField != ".") {
+            throw FieldAlreadyPlayedException(row, column, Sign.from(existingSignAtField))
+        }
+
+        winner?.let { winner ->
+            throw CannotPlayAfterFinishedGameException(winner)
+        }
+
+        val index = getBoardCharacterIndex(row, column)
+        board = board.replaceRange(index..index, turn.name)
+
+        if (hasWon(turn)) {
+            this.winner = turn
+            victoryListener?.onVictory(turn)
+        }
+
+        turn = if (turn == Sign.X) Sign.O else Sign.X
     }
 
     fun logBoard(): String {
@@ -34,35 +51,6 @@ class Game(val victoryListener: VictoryListener? = null) {
         this.board = INITIAL_BOARD
         this.turn = Sign.X
         this.winner = null
-    }
-
-    private fun playSign(sign: Sign, row: Int, column: Int) {
-
-        if (row < 1 || column < 1 || row > 3 || column > 3) {
-            throw NonexistentFieldException(row, column)
-        }
-
-        if (turn != sign) {
-            throw PlayedTwiceException()
-        }
-
-        if (getSign(row, column) != ".") {
-            throw FieldAlreadyPlayedException(row, column, sign)
-        }
-
-        winner?.let { winner ->
-            throw CannotPlayAfterFinishedGameException(winner)
-        }
-
-        val index = getBoardCharacterIndex(row, column)
-        board = board.replaceRange(index..index, sign.name)
-
-        if (hasWon(sign)) {
-            this.winner = sign
-            victoryListener?.onVictory(sign)
-        }
-
-        turn = if (sign == Sign.X) Sign.O else Sign.X
     }
 
     private fun hasWon(sign: Sign): Boolean {
