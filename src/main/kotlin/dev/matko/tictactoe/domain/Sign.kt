@@ -1,4 +1,4 @@
-package dev.matko.tictactoe
+package dev.matko.tictactoe.domain
 
 enum class Sign {
     X, O;

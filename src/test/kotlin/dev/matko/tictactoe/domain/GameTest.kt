@@ -1,8 +1,10 @@
-package dev.matko.tictactoe
+package dev.matko.tictactoe.domain
 
-import dev.matko.tictactoe.exceptions.CannotPlayAfterFinishedGameException
-import dev.matko.tictactoe.exceptions.FieldAlreadyPlayedException
-import dev.matko.tictactoe.exceptions.NonexistentFieldException
+import dev.matko.tictactoe.domain.Game
+import dev.matko.tictactoe.domain.Sign
+import dev.matko.tictactoe.domain.exceptions.CannotPlayAfterFinishedGameException
+import dev.matko.tictactoe.domain.exceptions.FieldAlreadyPlayedException
+import dev.matko.tictactoe.domain.exceptions.NonexistentFieldException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
