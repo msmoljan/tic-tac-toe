@@ -1,7 +1,5 @@
 package dev.matko.tictactoe.domain
 
-import dev.matko.tictactoe.domain.Game
-import dev.matko.tictactoe.domain.Sign
 import dev.matko.tictactoe.domain.exceptions.CannotPlayAfterFinishedGameException
 import dev.matko.tictactoe.domain.exceptions.FieldAlreadyPlayedException
 import dev.matko.tictactoe.domain.exceptions.NonexistentFieldException
@@ -30,6 +28,8 @@ class GameTest {
                     xWins++
                 }
             }
+
+            override fun onGameChanged() = Unit
         }
         val game = Game(victoryListener)
 
@@ -52,6 +52,8 @@ class GameTest {
                     xWins++
                 }
             }
+
+            override fun onGameChanged() = Unit
         }
         val game = Game(victoryListener)
 
@@ -74,6 +76,8 @@ class GameTest {
                     xWins++
                 }
             }
+
+            override fun onGameChanged() = Unit
         }
         val game = Game(victoryListener)
 
@@ -96,6 +100,8 @@ class GameTest {
                     xWins++
                 }
             }
+
+            override fun onGameChanged() = Unit
         }
         val game = Game(victoryListener)
 
@@ -118,6 +124,8 @@ class GameTest {
                     xWins++
                 }
             }
+
+            override fun onGameChanged() = Unit
         }
         val game = Game(victoryListener)
 
@@ -140,6 +148,8 @@ class GameTest {
                     xWins++
                 }
             }
+
+            override fun onGameChanged() = Unit
         }
         val game = Game(victoryListener)
 
@@ -162,6 +172,8 @@ class GameTest {
                     xWins++
                 }
             }
+
+            override fun onGameChanged() = Unit
         }
         val game = Game(victoryListener)
 
@@ -184,6 +196,8 @@ class GameTest {
                     xWins++
                 }
             }
+
+            override fun onGameChanged() = Unit
         }
         val game = Game(victoryListener)
 

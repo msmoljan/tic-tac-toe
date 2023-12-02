@@ -1,21 +1,33 @@
+ToDo:
+- Press ESC to exit at any point
+- Refresh board as the game is played
+- Press R to reset
+- Prevent input after win
+- Show ESC and R instructions during gameplay
+- Prevent input other than 1-3 and ","
+- Enter "row,column" and ENTER to play
+- Allow whitespace characters anywhere in row and column
+- Throw exception if CLI is used without the game being set
+
 Done:
-Refactor to avoid specifying sign during play to reduce errors
-Can play X after a game reset
-Board is all "." after a game reset
-Cannot play after win
-Forbid overwriting an already played field
-Column cannot be > 3
-Row cannot be > 3
-Column cannot be < 1
-Row cannot be < 1
-Cannot play same position
-O can play
-Test winning condition right-to-left diagonal
-Test winning condition left-to-right diagonal
-X can't play twice
-Test winning condition first row
-Test winning condition second row
-Test winning condition 3rd row
-Test winning condition first column
-Test winning condition second column
-Test winning condition 3rd column
+- Show empty board when game starts
+- Refactor to avoid specifying sign during play to reduce errors
+- Can play X after a game reset
+- Board is all "." after a game reset
+- Cannot play after win
+- Forbid overwriting an already played field
+- Column cannot be > 3
+- Row cannot be > 3
+- Column cannot be < 1
+- Row cannot be < 1
+- Cannot play same position
+- O can play
+- Test winning condition right-to-left diagonal
+- Test winning condition left-to-right diagonal
+- X can't play twice
+- Test winning condition first row
+- Test winning condition second row
+- Test winning condition 3rd row
+- Test winning condition first column
+- Test winning condition second column
+- Test winning condition 3rd column

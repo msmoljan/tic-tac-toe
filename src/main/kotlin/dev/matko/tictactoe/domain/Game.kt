@@ -10,6 +10,23 @@ class Game(private val victoryListener: VictoryListener? = null) {
 
     interface VictoryListener {
         fun onVictory(sign: Sign)
+        fun onGameChanged()
+    }
+
+    companion object {
+        fun victoryListener(
+            doOnVictory: ((sign: Sign) -> Unit)? = null,
+            doOnGameChanged: (() -> Unit)? = null,
+        ) = object : VictoryListener {
+
+            override fun onVictory(sign: Sign) {
+                doOnVictory?.invoke(sign)
+            }
+
+            override fun onGameChanged() {
+                doOnGameChanged?.invoke()
+            }
+        }
     }
 
     private var board: String = INITIAL_BOARD
@@ -37,6 +54,8 @@ class Game(private val victoryListener: VictoryListener? = null) {
         if (hasWon(turn)) {
             this.winner = turn
             victoryListener?.onVictory(turn)
+        } else {
+            victoryListener?.onGameChanged()
         }
 
         turn = if (turn == Sign.X) Sign.O else Sign.X
