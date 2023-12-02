@@ -12,17 +12,18 @@ class CliTest {
 
     private lateinit var cli: Cli
     private lateinit var testOutputStream: OutputStream
+    private lateinit var gameListener: Game.GameListener
 
     @BeforeEach
     fun setUp() {
         this.testOutputStream = ByteArrayOutputStream()
         this.cli = Cli(printStream = PrintStream(testOutputStream))
+        this.gameListener = Game.gameListener(doOnGameChanged = { this.cli.printGame() })
     }
 
     @Test
     fun `Show empty board when the game starts`() {
-        val victoryListener = Game.gameListener(doOnGameChanged = { this.cli.printGame() })
-        val game = Game(gameListener = victoryListener)
+        val game = Game(gameListener)
 
         this.cli.useGame(game)
 
