@@ -6,18 +6,18 @@ import dev.matko.tictactoe.domain.exceptions.NonexistentFieldException
 
 private const val INITIAL_BOARD = "........."
 
-class Game(private val victoryListener: VictoryListener? = null) {
+class Game(private val gameListener: GameListener? = null) {
 
-    interface VictoryListener {
+    interface GameListener {
         fun onVictory(sign: Sign)
         fun onGameChanged()
     }
 
     companion object {
-        fun victoryListener(
+        fun gameListener(
             doOnVictory: ((sign: Sign) -> Unit)? = null,
             doOnGameChanged: (() -> Unit)? = null,
-        ) = object : VictoryListener {
+        ) = object : GameListener {
 
             override fun onVictory(sign: Sign) {
                 doOnVictory?.invoke(sign)
@@ -53,9 +53,9 @@ class Game(private val victoryListener: VictoryListener? = null) {
 
         if (hasWon(turn)) {
             this.winner = turn
-            victoryListener?.onVictory(turn)
+            gameListener?.onVictory(turn)
         } else {
-            victoryListener?.onGameChanged()
+            gameListener?.onGameChanged()
         }
 
         turn = if (turn == Sign.X) Sign.O else Sign.X

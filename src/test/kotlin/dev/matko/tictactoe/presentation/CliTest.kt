@@ -21,8 +21,8 @@ class CliTest {
 
     @Test
     fun `Show empty board when the game starts`() {
-        val victoryListener = Game.victoryListener(doOnGameChanged = { this.cli.printGame() })
-        val game = Game(victoryListener = victoryListener)
+        val victoryListener = Game.gameListener(doOnGameChanged = { this.cli.printGame() })
+        val game = Game(gameListener = victoryListener)
 
         this.cli.useGame(game)
 

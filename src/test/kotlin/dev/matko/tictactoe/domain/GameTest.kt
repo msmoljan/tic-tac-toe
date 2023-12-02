@@ -20,7 +20,7 @@ class GameTest {
 
     @Test
     fun `The game is won if the first row is all in the same sign`() {
-        val victoryListener = object : Game.VictoryListener {
+        val gameListener = object : Game.GameListener {
             var xWins = 0
 
             override fun onVictory(sign: Sign) {
@@ -31,7 +31,7 @@ class GameTest {
 
             override fun onGameChanged() = Unit
         }
-        val game = Game(victoryListener)
+        val game = Game(gameListener)
 
         game.play(row = 1, column = 1)
         game.play(row = 2, column = 1)
@@ -39,12 +39,12 @@ class GameTest {
         game.play(row = 2, column = 2)
         game.play(row = 1, column = 3)
 
-        assertEquals(1, victoryListener.xWins)
+        assertEquals(1, gameListener.xWins)
     }
 
     @Test
     fun `The game is won if the second row is all in the same sign`() {
-        val victoryListener = object : Game.VictoryListener {
+        val gameListener = object : Game.GameListener {
             var xWins = 0
 
             override fun onVictory(sign: Sign) {
@@ -55,7 +55,7 @@ class GameTest {
 
             override fun onGameChanged() = Unit
         }
-        val game = Game(victoryListener)
+        val game = Game(gameListener)
 
         game.play(row = 2, column = 1)
         game.play(row = 1, column = 1)
@@ -63,12 +63,12 @@ class GameTest {
         game.play(row = 1, column = 2)
         game.play(row = 2, column = 3)
 
-        assertEquals(1, victoryListener.xWins)
+        assertEquals(1, gameListener.xWins)
     }
 
     @Test
     fun `The game is won if the third row is all in the same sign`() {
-        val victoryListener = object : Game.VictoryListener {
+        val gameListener = object : Game.GameListener {
             var xWins = 0
 
             override fun onVictory(sign: Sign) {
@@ -79,7 +79,7 @@ class GameTest {
 
             override fun onGameChanged() = Unit
         }
-        val game = Game(victoryListener)
+        val game = Game(gameListener)
 
         game.play(row = 3, column = 1)
         game.play(row = 1, column = 1)
@@ -87,12 +87,12 @@ class GameTest {
         game.play(row = 1, column = 2)
         game.play(row = 3, column = 3)
 
-        assertEquals(1, victoryListener.xWins)
+        assertEquals(1, gameListener.xWins)
     }
 
     @Test
     fun `The game is won if the first column is all in the same sign`() {
-        val victoryListener = object : Game.VictoryListener {
+        val gameListener = object : Game.GameListener {
             var xWins = 0
 
             override fun onVictory(sign: Sign) {
@@ -103,7 +103,7 @@ class GameTest {
 
             override fun onGameChanged() = Unit
         }
-        val game = Game(victoryListener)
+        val game = Game(gameListener)
 
         game.play(row = 1, column = 1)
         game.play(row = 1, column = 2)
@@ -111,12 +111,12 @@ class GameTest {
         game.play(row = 1, column = 3)
         game.play(row = 3, column = 1)
 
-        assertEquals(1, victoryListener.xWins)
+        assertEquals(1, gameListener.xWins)
     }
 
     @Test
     fun `The game is won if the second column is all in the same sign`() {
-        val victoryListener = object : Game.VictoryListener {
+        val gameListener = object : Game.GameListener {
             var xWins = 0
 
             override fun onVictory(sign: Sign) {
@@ -127,7 +127,7 @@ class GameTest {
 
             override fun onGameChanged() = Unit
         }
-        val game = Game(victoryListener)
+        val game = Game(gameListener)
 
         game.play(row = 1, column = 2)
         game.play(row = 1, column = 1)
@@ -135,12 +135,12 @@ class GameTest {
         game.play(row = 2, column = 1)
         game.play(row = 3, column = 2)
 
-        assertEquals(1, victoryListener.xWins)
+        assertEquals(1, gameListener.xWins)
     }
 
     @Test
     fun `The game is won if the third column is all in the same sign`() {
-        val victoryListener = object : Game.VictoryListener {
+        val gameListener = object : Game.GameListener {
             var xWins = 0
 
             override fun onVictory(sign: Sign) {
@@ -151,7 +151,7 @@ class GameTest {
 
             override fun onGameChanged() = Unit
         }
-        val game = Game(victoryListener)
+        val game = Game(gameListener)
 
         game.play(row = 1, column = 3)
         game.play(row = 1, column = 1)
@@ -159,12 +159,12 @@ class GameTest {
         game.play(row = 2, column = 1)
         game.play(row = 3, column = 3)
 
-        assertEquals(1, victoryListener.xWins)
+        assertEquals(1, gameListener.xWins)
     }
 
     @Test
     fun `The game is won if the left-to-right diagonal is all in the same sign`() {
-        val victoryListener = object : Game.VictoryListener {
+        val gameListener = object : Game.GameListener {
             var xWins = 0
 
             override fun onVictory(sign: Sign) {
@@ -175,7 +175,7 @@ class GameTest {
 
             override fun onGameChanged() = Unit
         }
-        val game = Game(victoryListener)
+        val game = Game(gameListener)
 
         game.play(row = 1, column = 1)
         game.play(row = 1, column = 2)
@@ -183,12 +183,12 @@ class GameTest {
         game.play(row = 2, column = 1)
         game.play(row = 3, column = 3)
 
-        assertEquals(1, victoryListener.xWins)
+        assertEquals(1, gameListener.xWins)
     }
 
     @Test
     fun `The game is won if the right-to-left diagonal is all in the same sign`() {
-        val victoryListener = object : Game.VictoryListener {
+        val gameListener = object : Game.GameListener {
             var xWins = 0
 
             override fun onVictory(sign: Sign) {
@@ -199,7 +199,7 @@ class GameTest {
 
             override fun onGameChanged() = Unit
         }
-        val game = Game(victoryListener)
+        val game = Game(gameListener)
 
         game.play(row = 1, column = 3)
         game.play(row = 1, column = 2)
@@ -207,7 +207,7 @@ class GameTest {
         game.play(row = 2, column = 1)
         game.play(row = 3, column = 1)
 
-        assertEquals(1, victoryListener.xWins)
+        assertEquals(1, gameListener.xWins)
     }
 
     @Test
