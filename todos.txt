@@ -5,11 +5,12 @@ ToDo:
 - Prevent input after win
 - Show ESC and R instructions during gameplay
 - Prevent input other than 1-3 and ","
-- Enter "row,column" and ENTER to play
 - Allow whitespace characters anywhere in row and column
 - Throw exception if CLI is used without the game being set
+- Add Cli to the "main" function
 
 Done:
+- Enter "row,column" and ENTER to play
 - Show empty board when game starts
 - Refactor to avoid specifying sign during play to reduce errors
 - Can play X after a game reset

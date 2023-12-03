@@ -27,7 +27,21 @@ class CliTest {
 
         this.cli.useGame(game)
 
-        assertEquals("...\n...\n...\n", this.testOutputStream.toString())
+        assertEquals("...\n...\n...\n", getCurrentScreen())
     }
 
+    @Test
+    fun `Show proper game state after multiple turns`() {
+        val game = Game(gameListener)
+
+        this.cli.useGame(game)
+        cli.processInput("1,1")
+        cli.processInput("2,2")
+
+        assertEquals("X..\n.O.\n...\n", getCurrentScreen())
+    }
+
+    private fun getCurrentScreen(): String {
+        return this.testOutputStream.toString().split("\\033[9A\n").last()
+    }
 }
