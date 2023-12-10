@@ -4,9 +4,11 @@ import dev.matko.tictactoe.domain.exceptions.CannotPlayAfterFinishedGameExceptio
 import dev.matko.tictactoe.domain.exceptions.FieldAlreadyPlayedException
 import dev.matko.tictactoe.domain.exceptions.NonexistentFieldException
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
+@DisplayName("Gameplay tests")
 class GameTest {
 
     @Test

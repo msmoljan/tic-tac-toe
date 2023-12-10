@@ -1,13 +1,11 @@
 package dev.matko.tictactoe.presentation
 
-import dev.matko.tictactoe.domain.Game
 import org.junit.jupiter.api.BeforeEach
-import java.io.ByteArrayOutputStream
-import java.io.OutputStream
-import java.io.PrintStream
+import org.junit.jupiter.api.DisplayName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
+@DisplayName("CLI tests")
 class CliTest {
 
     private lateinit var cli: Cli
