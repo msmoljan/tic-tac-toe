@@ -11,37 +11,38 @@ import kotlin.test.assertEquals
 class CliTest {
 
     private lateinit var cli: Cli
-    private lateinit var testOutputStream: OutputStream
-    private lateinit var gameListener: Game.GameListener
+    private lateinit var screenUpdateMemorizer: ScreenUpdateMemorizer
+
+    class ScreenUpdateMemorizer : Cli.ScreenUpdateListener {
+        var latestScreenState: String = ""
+            private set
+
+        override fun onScreenUpdate(screen: String) {
+            this.latestScreenState = screen
+        }
+    }
 
     @BeforeEach
     fun setUp() {
-        this.testOutputStream = ByteArrayOutputStream()
-        this.cli = Cli(printStream = PrintStream(testOutputStream))
-        this.gameListener = Game.gameListener(doOnGameChanged = { this.cli.printGame() })
+        this.cli = Cli()
+        this.screenUpdateMemorizer = ScreenUpdateMemorizer()
+        this.cli.setScreenUpdateListener(screenUpdateMemorizer)
     }
 
     @Test
     fun `Show empty board when the game starts`() {
-        val game = Game(gameListener)
-
-        this.cli.useGame(game)
-
         assertEquals("...\n...\n...\n", getCurrentScreen())
     }
 
     @Test
     fun `Show proper game state after multiple turns`() {
-        val game = Game(gameListener)
-
-        this.cli.useGame(game)
-        cli.processInput("1,1")
-        cli.processInput("2,2")
+        this.cli.processInput("1,1")
+        this.cli.processInput("2,2")
 
         assertEquals("X..\n.O.\n...\n", getCurrentScreen())
     }
 
     private fun getCurrentScreen(): String {
-        return this.testOutputStream.toString().split("\\033[9A\n").last()
+        return screenUpdateMemorizer.latestScreenState
     }
 }

@@ -1,38 +1,39 @@
 package dev.matko.tictactoe.presentation
 
 import dev.matko.tictactoe.domain.Game
+import dev.matko.tictactoe.domain.Sign
 import java.io.PrintStream
 
-private const val CLEAR_CONSOLE_CHARS = "\\033[9A"
 
-class Cli(
-    private val printStream: PrintStream = System.out
-) {
-    private var game: Game? = null
+class Cli : Game.GameListener {
+
+    interface ScreenUpdateListener {
+        fun onScreenUpdate(screen: String)
+    }
+
+    private var game: Game
+    private var screenUpdateListener: ScreenUpdateListener? = null
 
     init {
-        System.setOut(printStream)
-    }
-
-    fun printGame() {
-        game?.let { game ->
-            clearConsole()
-            println(game.logBoard())
-        }
-    }
-
-    private fun clearConsole() {
-        printStream.println(CLEAR_CONSOLE_CHARS) // Clear the console
-    }
-
-    fun useGame(game: Game) {
-        this.game = game
-        printGame()
+        this.game = Game(gameListener = this)
     }
 
     fun processInput(input: String) {
         val (row, column) = input.split(",").map { it.toInt() }
 
-        game?.play(row, column)
+        game.play(row, column)
+    }
+
+    fun setScreenUpdateListener(screenUpdateListener: ScreenUpdateListener?) {
+        this.screenUpdateListener = screenUpdateListener
+        onGameChanged()
+    }
+
+    override fun onVictory(sign: Sign) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onGameChanged() {
+        screenUpdateListener?.onScreenUpdate(game.logBoard() + "\n")
     }
 }
