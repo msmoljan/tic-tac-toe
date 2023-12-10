@@ -60,6 +60,14 @@ class CliTest {
         assertEquals("...\n...\n...\n", getCurrentScreen())
     }
 
+    @Test
+    fun `Allow whitespace characters anywhere in input`() {
+        this.cli.processInput(" 1 ,1 ")
+        this.cli.processInput("  2, 2   ")
+
+        assertEquals("X..\n.O.\n...\n", getCurrentScreen())
+    }
+
     private fun getCurrentScreen(): String {
         return screenUpdateMemorizer.latestScreenState
     }

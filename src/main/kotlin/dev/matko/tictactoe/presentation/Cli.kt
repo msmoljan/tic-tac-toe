@@ -2,7 +2,6 @@ package dev.matko.tictactoe.presentation
 
 import dev.matko.tictactoe.domain.Game
 import dev.matko.tictactoe.domain.Sign
-import java.io.PrintStream
 
 
 class Cli : Game.GameListener {
@@ -18,7 +17,10 @@ class Cli : Game.GameListener {
         this.game = Game(gameListener = this)
     }
 
+    @Suppress("NAME_SHADOWING")
     fun processInput(input: String) {
+        val input = input.replace(regex = Regex("\\s"), replacement = "")
+
         if (input.contains(",")) {
             val (row, column) = input.split(",").map { it.toInt() }
 

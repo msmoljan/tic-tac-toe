@@ -1,14 +1,14 @@
 ToDo:
 - Press ESC to exit at any point
-- Refresh board as the game is played
 - Prevent input after win
 - Show ESC and R instructions during gameplay
 - Prevent input other than 1-3 and ","
-- Allow whitespace characters anywhere in row and column
 - Throw exception if CLI is used without the game being set
 - Add Cli to the "main" function
 
 Done:
+- Allow whitespace characters anywhere in row and column
+- Refresh board as the game is played
 - Press R to reset
 - Enter "row,column" and ENTER to play
 - Show empty board when game starts
