@@ -8,6 +8,7 @@ class Cli : Game.GameListener {
 
     interface ScreenUpdateListener {
         fun onScreenUpdate(screen: String)
+        fun onQuit()
     }
 
     private var game: Game
@@ -21,12 +22,16 @@ class Cli : Game.GameListener {
     fun processInput(input: String) {
         val input = input.replace(regex = Regex("\\s"), replacement = "")
 
-        if (input.contains(",")) {
-            val (row, column) = input.split(",").map { it.toInt() }
-
-            game.play(row, column)
-        } else {
-            game.reset()
+        when {
+            (input.contains(",")) -> {
+                val (row, column) = input.split(",").map { it.toInt() }
+                game.play(row, column)
+            }
+            "q" == input.lowercase() -> {
+                screenUpdateListener?.onScreenUpdate("Goodbye!\n")
+                screenUpdateListener?.onQuit()
+            }
+            else -> game.reset()
         }
     }
 

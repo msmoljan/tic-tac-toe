@@ -17,8 +17,14 @@ class CliTest {
         var latestScreenState: String = ""
             private set
 
+        var hasQuit = false
+
         override fun onScreenUpdate(screen: String) {
             this.latestScreenState = screen
+        }
+
+        override fun onQuit() {
+            this.hasQuit = true
         }
     }
 
@@ -66,6 +72,23 @@ class CliTest {
         this.cli.processInput("  2, 2   ")
 
         assertEquals("X..\n.O.\n...\n", getCurrentScreen())
+    }
+
+    @Test
+    fun `'Q' exits game`() {
+        this.cli.processInput("1,1")
+        this.cli.processInput("Q")
+
+        assertEquals("Goodbye!\n", getCurrentScreen())
+    }
+
+    @Test
+    fun `'q' exits game`() {
+        this.cli.processInput("1,1")
+        this.cli.processInput("Q")
+
+        assertEquals("Goodbye!\n", getCurrentScreen())
+        assertEquals(true, screenUpdateMemorizer.hasQuit)
     }
 
     private fun getCurrentScreen(): String {
