@@ -19,9 +19,13 @@ class Cli : Game.GameListener {
     }
 
     fun processInput(input: String) {
-        val (row, column) = input.split(",").map { it.toInt() }
+        if (input.contains(",")) {
+            val (row, column) = input.split(",").map { it.toInt() }
 
-        game.play(row, column)
+            game.play(row, column)
+        } else {
+            game.reset()
+        }
     }
 
     fun setScreenUpdateListener(screenUpdateListener: ScreenUpdateListener?) {

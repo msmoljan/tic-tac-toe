@@ -42,6 +42,24 @@ class CliTest {
         assertEquals("X..\n.O.\n...\n", getCurrentScreen())
     }
 
+    @Test
+    fun `Press 'R' to reset game`() {
+        this.cli.processInput("1,1")
+        this.cli.processInput("2,2")
+        this.cli.processInput("R")
+
+        assertEquals("...\n...\n...\n", getCurrentScreen())
+    }
+
+    @Test
+    fun `Press 'r' to reset game`() {
+        this.cli.processInput("1,1")
+        this.cli.processInput("2,2")
+        this.cli.processInput("r")
+
+        assertEquals("...\n...\n...\n", getCurrentScreen())
+    }
+
     private fun getCurrentScreen(): String {
         return screenUpdateMemorizer.latestScreenState
     }

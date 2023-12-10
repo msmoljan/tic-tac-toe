@@ -71,6 +71,7 @@ class Game(private val gameListener: GameListener? = null) {
         this.board = INITIAL_BOARD
         this.turn = Sign.X
         this.winner = null
+        gameListener?.onGameChanged()
     }
 
     private fun hasWon(sign: Sign): Boolean {
