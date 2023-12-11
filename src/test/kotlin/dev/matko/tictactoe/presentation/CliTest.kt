@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 @DisplayName("CLI tests")
 class CliTest {
@@ -86,7 +87,7 @@ class CliTest {
         this.cli.processInput("Q")
 
         assertEquals("Goodbye!\n", getCurrentScreen())
-        assertEquals(true, screenUpdateMemorizer.hasQuit)
+        assertTrue(screenUpdateMemorizer.hasQuit)
     }
 
     @Test
@@ -116,6 +117,30 @@ class CliTest {
         this.cli.processInput("3,1")
 
         assertEquals("XOO\n.X.\n..X\n\nCannot play after the game has been won! Enter 'R' to restart or 'Q' to quit.\n", getCurrentScreen())
+    }
+
+    @Test
+    fun `Allow reset after winning`() {
+        this.cli.processInput("1,1")
+        this.cli.processInput("1,2")
+        this.cli.processInput("2,2")
+        this.cli.processInput("1,3")
+        this.cli.processInput("3,3")
+        this.cli.processInput("r")
+
+        assertEquals("...\n...\n...\n", getCurrentScreen())
+    }
+
+    @Test
+    fun `Allow quitting after winning`() {
+        this.cli.processInput("1,1")
+        this.cli.processInput("1,2")
+        this.cli.processInput("2,2")
+        this.cli.processInput("1,3")
+        this.cli.processInput("3,3")
+        this.cli.processInput("q")
+
+        assertTrue(screenUpdateMemorizer.hasQuit)
     }
 
     private fun getCurrentScreen(): String {

@@ -1,12 +1,12 @@
 ToDo:
-- Prevent coordinate input after win
-- Allow R after win
-- Allow Q after win
 - Show coordinate, Q and R instructions during gameplay
 - Show current player
 - Add Cli to the "main" function
 
 Done:
+- Allow R after win
+- Allow Q after win
+- Prevent coordinate input after win
 - Process empty input as redraw
 - Prevent input other than 1-3, R, ESC and ","
 - Type "Q" or "q" to exit at any point
