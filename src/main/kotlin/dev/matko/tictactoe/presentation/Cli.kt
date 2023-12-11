@@ -32,6 +32,9 @@ class Cli : Game.GameListener {
                 screenUpdateListener?.onQuit()
             }
             "r" == input.lowercase() -> game.reset()
+            "" == input -> {
+                screenUpdateListener?.onScreenUpdate(game.logBoard() + "\n")
+            }
             else -> {
                 screenUpdateListener?.onScreenUpdate(game.logBoard() + "\nInvalid input: \"$input\".\n")
             }

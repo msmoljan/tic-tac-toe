@@ -1,5 +1,4 @@
 ToDo:
-- Process empty input as redraw
 - Prevent coordinate input after win
 - Allow R after win
 - Allow Q after win
@@ -8,6 +7,7 @@ ToDo:
 - Add Cli to the "main" function
 
 Done:
+- Process empty input as redraw
 - Prevent input other than 1-3, R, ESC and ","
 - Type "Q" or "q" to exit at any point
 - Allow whitespace characters anywhere in row and column

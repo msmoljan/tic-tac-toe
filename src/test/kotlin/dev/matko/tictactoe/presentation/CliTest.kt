@@ -97,6 +97,15 @@ class CliTest {
         assertEquals("...\n.X.\n...\nInvalid input: \"h\".\n", getCurrentScreen())
     }
 
+    @Test
+    fun `The game is refreshed on empty input, but retains state`() {
+        this.cli.processInput("2,2")
+        this.cli.processInput("h")
+        this.cli.processInput("")
+
+        assertEquals("...\n.X.\n...\n", getCurrentScreen())
+    }
+
     private fun getCurrentScreen(): String {
         return screenUpdateMemorizer.latestScreenState
     }
