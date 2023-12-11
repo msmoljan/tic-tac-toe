@@ -1,4 +1,5 @@
 ToDo:
+- Process empty input as redraw
 - Prevent coordinate input after win
 - Allow R after win
 - Allow Q after win
