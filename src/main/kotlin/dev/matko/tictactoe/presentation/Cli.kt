@@ -42,6 +42,7 @@ class Cli : Game.GameListener {
             }
 
             "r" == input.lowercase() -> game.reset()
+
             "" == input -> {
                 screenUpdateListener?.onScreenUpdate(game.logBoard() + "\n")
             }
@@ -62,6 +63,6 @@ class Cli : Game.GameListener {
     }
 
     override fun onGameChanged() {
-        screenUpdateListener?.onScreenUpdate(game.logBoard() + "\n")
+        screenUpdateListener?.onScreenUpdate(game.logBoard() + "\n\nIt's ${game.currentPlayer}'s turn\n")
     }
 }

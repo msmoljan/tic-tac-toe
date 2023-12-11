@@ -36,7 +36,7 @@ class CliTest {
 
     @Test
     fun `Show empty board when the game starts`() {
-        assertEquals("...\n...\n...\n", getCurrentScreen())
+        assertEquals("...\n...\n...\n\nIt's X's turn\n", getCurrentScreen())
     }
 
     @Test
@@ -44,7 +44,7 @@ class CliTest {
         this.cli.processInput("1,1")
         this.cli.processInput("2,2")
 
-        assertEquals("X..\n.O.\n...\n", getCurrentScreen())
+        assertEquals("X..\n.O.\n...\n\nIt's X's turn\n", getCurrentScreen())
     }
 
     @Test
@@ -53,7 +53,7 @@ class CliTest {
         this.cli.processInput("2,2")
         this.cli.processInput("R")
 
-        assertEquals("...\n...\n...\n", getCurrentScreen())
+        assertEquals("...\n...\n...\n\nIt's X's turn\n", getCurrentScreen())
     }
 
     @Test
@@ -62,7 +62,7 @@ class CliTest {
         this.cli.processInput("2,2")
         this.cli.processInput("r")
 
-        assertEquals("...\n...\n...\n", getCurrentScreen())
+        assertEquals("...\n...\n...\n\nIt's X's turn\n", getCurrentScreen())
     }
 
     @Test
@@ -70,7 +70,7 @@ class CliTest {
         this.cli.processInput(" 1 ,1 ")
         this.cli.processInput("  2, 2   ")
 
-        assertEquals("X..\n.O.\n...\n", getCurrentScreen())
+        assertEquals("X..\n.O.\n...\n\nIt's X's turn\n", getCurrentScreen())
     }
 
     @Test
@@ -128,7 +128,7 @@ class CliTest {
         this.cli.processInput("3,3")
         this.cli.processInput("r")
 
-        assertEquals("...\n...\n...\n", getCurrentScreen())
+        assertEquals("...\n...\n...\n\nIt's X's turn\n", getCurrentScreen())
     }
 
     @Test
@@ -151,7 +151,14 @@ class CliTest {
         this.cli.processInput("1,3")
         this.cli.processInput("3,3")
 
-        assertEquals("XOO\n.X.\n..X\n\nGame finished: X won!\n", getCurrentScreen());
+        assertEquals("XOO\n.X.\n..X\n\nGame finished: X won!\n", getCurrentScreen())
+    }
+
+    @Test
+    fun `Display current player`() {
+        this.cli.processInput("1,1")
+
+        assertEquals("X..\n...\n...\n\nIt's O's turn\n", getCurrentScreen())
     }
 
     private fun getCurrentScreen(): String {

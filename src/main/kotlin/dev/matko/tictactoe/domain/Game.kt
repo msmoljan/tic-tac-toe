@@ -13,24 +13,10 @@ class Game(private val gameListener: GameListener? = null) {
         fun onGameChanged()
     }
 
-    companion object {
-        fun gameListener(
-            doOnVictory: ((sign: Sign) -> Unit)? = null,
-            doOnGameChanged: (() -> Unit)? = null,
-        ) = object : GameListener {
-
-            override fun onVictory(sign: Sign) {
-                doOnVictory?.invoke(sign)
-            }
-
-            override fun onGameChanged() {
-                doOnGameChanged?.invoke()
-            }
-        }
-    }
+    var currentPlayer = Sign.X
+        private set
 
     private var board: String = INITIAL_BOARD
-    private var turn = Sign.X
     private var winner: Sign? = null
 
     var isFinished: Boolean
@@ -53,16 +39,15 @@ class Game(private val gameListener: GameListener? = null) {
         }
 
         val index = getBoardCharacterIndex(row, column)
-        board = board.replaceRange(index..index, turn.name)
+        board = board.replaceRange(index..index, currentPlayer.name)
 
-        if (hasWon(turn)) {
-            this.winner = turn
-            gameListener?.onVictory(turn)
+        if (hasWon(currentPlayer)) {
+            this.winner = currentPlayer
+            gameListener?.onVictory(currentPlayer)
         } else {
+            currentPlayer = if (currentPlayer == Sign.X) Sign.O else Sign.X
             gameListener?.onGameChanged()
         }
-
-        turn = if (turn == Sign.X) Sign.O else Sign.X
     }
 
     fun logBoard(): String {
@@ -73,7 +58,7 @@ class Game(private val gameListener: GameListener? = null) {
 
     fun reset() {
         this.board = INITIAL_BOARD
-        this.turn = Sign.X
+        this.currentPlayer = Sign.X
         this.winner = null
         gameListener?.onGameChanged()
     }
