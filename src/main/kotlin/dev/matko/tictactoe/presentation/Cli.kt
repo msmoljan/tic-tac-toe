@@ -24,17 +24,28 @@ class Cli : Game.GameListener {
 
         when {
             input.matches(Regex("[1-3],[1-3]")) -> {
-                val (row, column) = input.split(",").map { it.toInt() }
-                game.play(row, column)
+                if (game.isFinished) {
+                    screenUpdateListener?.onScreenUpdate(
+                        game
+                            .logBoard()
+                            .plus("\n\nCannot play after the game has been won! Enter 'R' to restart or 'Q' to quit.\n")
+                    )
+                } else {
+                    val (row, column) = input.split(",").map { it.toInt() }
+                    game.play(row, column)
+                }
             }
+
             "q" == input.lowercase() -> {
                 screenUpdateListener?.onScreenUpdate("Goodbye!\n")
                 screenUpdateListener?.onQuit()
             }
+
             "r" == input.lowercase() -> game.reset()
             "" == input -> {
                 screenUpdateListener?.onScreenUpdate(game.logBoard() + "\n")
             }
+
             else -> {
                 screenUpdateListener?.onScreenUpdate(game.logBoard() + "\nInvalid input: \"$input\".\n")
             }
@@ -47,7 +58,6 @@ class Cli : Game.GameListener {
     }
 
     override fun onVictory(sign: Sign) {
-        TODO("Not yet implemented")
     }
 
     override fun onGameChanged() {

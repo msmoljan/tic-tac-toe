@@ -33,6 +33,10 @@ class Game(private val gameListener: GameListener? = null) {
     private var turn = Sign.X
     private var winner: Sign? = null
 
+    var isFinished: Boolean
+        get() = winner != null
+        private set(_) = throw IllegalStateException("This should not be callable")
+
     fun play(row: Int, column: Int) {
 
         if (row < 1 || column < 1 || row > 3 || column > 3) {

@@ -3,7 +3,7 @@ ToDo:
 - Allow R after win
 - Allow Q after win
 - Show coordinate, Q and R instructions during gameplay
-- Throw exception if CLI is used without the game being set
+- Show current player
 - Add Cli to the "main" function
 
 Done:

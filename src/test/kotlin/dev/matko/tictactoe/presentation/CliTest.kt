@@ -106,6 +106,18 @@ class CliTest {
         assertEquals("...\n.X.\n...\n", getCurrentScreen())
     }
 
+    @Test
+    fun `Prevent coordinate input after winning`() {
+        this.cli.processInput("1,1")
+        this.cli.processInput("1,2")
+        this.cli.processInput("2,2")
+        this.cli.processInput("1,3")
+        this.cli.processInput("3,3")
+        this.cli.processInput("3,1")
+
+        assertEquals("XOO\n.X.\n..X\n\nCannot play after the game has been won! Enter 'R' to restart or 'Q' to quit.\n", getCurrentScreen())
+    }
+
     private fun getCurrentScreen(): String {
         return screenUpdateMemorizer.latestScreenState
     }
