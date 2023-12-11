@@ -23,7 +23,7 @@ class Cli : Game.GameListener {
         val input = input.replace(regex = Regex("\\s"), replacement = "")
 
         when {
-            (input.contains(",")) -> {
+            input.matches(Regex("[1-3],[1-3]")) -> {
                 val (row, column) = input.split(",").map { it.toInt() }
                 game.play(row, column)
             }
@@ -31,7 +31,10 @@ class Cli : Game.GameListener {
                 screenUpdateListener?.onScreenUpdate("Goodbye!\n")
                 screenUpdateListener?.onQuit()
             }
-            else -> game.reset()
+            "r" == input.lowercase() -> game.reset()
+            else -> {
+                screenUpdateListener?.onScreenUpdate(game.logBoard() + "\nInvalid input: \"$input\".\n")
+            }
         }
     }
 

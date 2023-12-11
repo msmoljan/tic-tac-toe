@@ -89,6 +89,14 @@ class CliTest {
         assertEquals(true, screenUpdateMemorizer.hasQuit)
     }
 
+    @Test
+    fun `Invalid input is communicated if wrong key is pressed`() {
+        this.cli.processInput("2,2")
+        this.cli.processInput("h")
+
+        assertEquals("...\n.X.\n...\nInvalid input: \"h\".\n", getCurrentScreen())
+    }
+
     private fun getCurrentScreen(): String {
         return screenUpdateMemorizer.latestScreenState
     }
