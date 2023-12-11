@@ -58,6 +58,7 @@ class Cli : Game.GameListener {
     }
 
     override fun onVictory(sign: Sign) {
+        this.screenUpdateListener?.onScreenUpdate("${game.logBoard()}\n\nGame finished: X won!\n")
     }
 
     override fun onGameChanged() {

@@ -1,9 +1,10 @@
 ToDo:
-- Show coordinate, Q and R instructions during gameplay
 - Show current player
+- Show coordinate, Q and R instructions during gameplay
 - Add Cli to the "main" function
 
 Done:
+- Show victory message when the game is won
 - Allow R after win
 - Allow Q after win
 - Prevent coordinate input after win

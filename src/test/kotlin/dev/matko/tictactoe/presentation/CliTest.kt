@@ -143,6 +143,17 @@ class CliTest {
         assertTrue(screenUpdateMemorizer.hasQuit)
     }
 
+    @Test
+    fun `Display message after winning`() {
+        this.cli.processInput("1,1")
+        this.cli.processInput("1,2")
+        this.cli.processInput("2,2")
+        this.cli.processInput("1,3")
+        this.cli.processInput("3,3")
+
+        assertEquals("XOO\n.X.\n..X\n\nGame finished: X won!\n", getCurrentScreen());
+    }
+
     private fun getCurrentScreen(): String {
         return screenUpdateMemorizer.latestScreenState
     }
