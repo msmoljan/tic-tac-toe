@@ -3,6 +3,7 @@ package dev.matko.tictactoe.presentation
 import dev.matko.tictactoe.domain.Game
 import dev.matko.tictactoe.domain.Sign
 
+private const val INSTRUCTION_TEXT = "\nEnter <ROW>,<COLUMN> (e.g. \"1,3\") to play, Q to quit, R to reset:\n"
 
 class Cli : Game.GameListener {
 
@@ -44,11 +45,11 @@ class Cli : Game.GameListener {
             "r" == input.lowercase() -> game.reset()
 
             "" == input -> {
-                screenUpdateListener?.onScreenUpdate(game.logBoard() + "\n")
+                screenUpdateListener?.onScreenUpdate(game.logBoard() + "\n" + INSTRUCTION_TEXT)
             }
 
             else -> {
-                screenUpdateListener?.onScreenUpdate(game.logBoard() + "\nInvalid input: \"$input\".\n")
+                screenUpdateListener?.onScreenUpdate(game.logBoard() + "\nInvalid input: \"$input\".\n" + INSTRUCTION_TEXT)
             }
         }
     }
@@ -59,10 +60,10 @@ class Cli : Game.GameListener {
     }
 
     override fun onVictory(sign: Sign) {
-        this.screenUpdateListener?.onScreenUpdate("${game.logBoard()}\n\nGame finished: X won!\n")
+        this.screenUpdateListener?.onScreenUpdate("${game.logBoard()}\n\nGame finished: X won!\n" + INSTRUCTION_TEXT)
     }
 
     override fun onGameChanged() {
-        screenUpdateListener?.onScreenUpdate(game.logBoard() + "\n\nIt's ${game.currentPlayer}'s turn\n")
+        screenUpdateListener?.onScreenUpdate(game.logBoard() + "\n\nIt's ${game.currentPlayer}'s turn\n" + INSTRUCTION_TEXT)
     }
 }

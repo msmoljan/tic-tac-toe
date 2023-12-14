@@ -6,6 +6,8 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
+private const val INSTRUCTION_TEXT = "Enter <ROW>,<COLUMN> (e.g. \"1,3\") to play, Q to quit, R to reset:"
+
 @DisplayName("CLI tests")
 class CliTest {
 
@@ -36,7 +38,7 @@ class CliTest {
 
     @Test
     fun `Show empty board when the game starts`() {
-        assertEquals("...\n...\n...\n\nIt's X's turn\n", getCurrentScreen())
+        assertEquals("...\n...\n...\n\nIt's X's turn\n\n$INSTRUCTION_TEXT\n", getCurrentScreen())
     }
 
     @Test
@@ -44,7 +46,7 @@ class CliTest {
         this.cli.processInput("1,1")
         this.cli.processInput("2,2")
 
-        assertEquals("X..\n.O.\n...\n\nIt's X's turn\n", getCurrentScreen())
+        assertEquals("X..\n.O.\n...\n\nIt's X's turn\n\n$INSTRUCTION_TEXT\n", getCurrentScreen())
     }
 
     @Test
@@ -53,7 +55,7 @@ class CliTest {
         this.cli.processInput("2,2")
         this.cli.processInput("R")
 
-        assertEquals("...\n...\n...\n\nIt's X's turn\n", getCurrentScreen())
+        assertEquals("...\n...\n...\n\nIt's X's turn\n\n$INSTRUCTION_TEXT\n", getCurrentScreen())
     }
 
     @Test
@@ -62,7 +64,7 @@ class CliTest {
         this.cli.processInput("2,2")
         this.cli.processInput("r")
 
-        assertEquals("...\n...\n...\n\nIt's X's turn\n", getCurrentScreen())
+        assertEquals("...\n...\n...\n\nIt's X's turn\n\n$INSTRUCTION_TEXT\n", getCurrentScreen())
     }
 
     @Test
@@ -70,7 +72,7 @@ class CliTest {
         this.cli.processInput(" 1 ,1 ")
         this.cli.processInput("  2, 2   ")
 
-        assertEquals("X..\n.O.\n...\n\nIt's X's turn\n", getCurrentScreen())
+        assertEquals("X..\n.O.\n...\n\nIt's X's turn\n\n$INSTRUCTION_TEXT\n", getCurrentScreen())
     }
 
     @Test
@@ -95,7 +97,7 @@ class CliTest {
         this.cli.processInput("2,2")
         this.cli.processInput("h")
 
-        assertEquals("...\n.X.\n...\nInvalid input: \"h\".\n", getCurrentScreen())
+        assertEquals("...\n.X.\n...\nInvalid input: \"h\".\n\n$INSTRUCTION_TEXT\n", getCurrentScreen())
     }
 
     @Test
@@ -104,7 +106,7 @@ class CliTest {
         this.cli.processInput("h")
         this.cli.processInput("")
 
-        assertEquals("...\n.X.\n...\n", getCurrentScreen())
+        assertEquals("...\n.X.\n...\n\n$INSTRUCTION_TEXT\n", getCurrentScreen())
     }
 
     @Test
@@ -116,7 +118,10 @@ class CliTest {
         this.cli.processInput("3,3")
         this.cli.processInput("3,1")
 
-        assertEquals("XOO\n.X.\n..X\n\nCannot play after the game has been won! Enter 'R' to restart or 'Q' to quit.\n", getCurrentScreen())
+        assertEquals(
+            "XOO\n.X.\n..X\n\nCannot play after the game has been won! Enter 'R' to restart or 'Q' to quit.\n",
+            getCurrentScreen()
+        )
     }
 
     @Test
@@ -128,7 +133,7 @@ class CliTest {
         this.cli.processInput("3,3")
         this.cli.processInput("r")
 
-        assertEquals("...\n...\n...\n\nIt's X's turn\n", getCurrentScreen())
+        assertEquals("...\n...\n...\n\nIt's X's turn\n\n$INSTRUCTION_TEXT\n", getCurrentScreen())
     }
 
     @Test
@@ -151,14 +156,14 @@ class CliTest {
         this.cli.processInput("1,3")
         this.cli.processInput("3,3")
 
-        assertEquals("XOO\n.X.\n..X\n\nGame finished: X won!\n", getCurrentScreen())
+        assertEquals("XOO\n.X.\n..X\n\nGame finished: X won!\n\n$INSTRUCTION_TEXT\n", getCurrentScreen())
     }
 
     @Test
     fun `Display current player`() {
         this.cli.processInput("1,1")
 
-        assertEquals("X..\n...\n...\n\nIt's O's turn\n", getCurrentScreen())
+        assertEquals("X..\n...\n...\n\nIt's O's turn\n\n$INSTRUCTION_TEXT\n", getCurrentScreen())
     }
 
     private fun getCurrentScreen(): String {
