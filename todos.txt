@@ -1,3 +1,6 @@
+To do: 
+- Notify players if the game is undecided (all fields have been played, but there is no winner)
+
 Done:
 - Show player on screen refresh
 - Prevent exception thrown in CLI when a played field is played again
