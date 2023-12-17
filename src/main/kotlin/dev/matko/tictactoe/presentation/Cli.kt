@@ -29,7 +29,6 @@ class Cli : Game.GameListener {
             "r" == input.lowercase() -> game.reset()
             "" == input -> refreshScreen()
             else -> notifyAboutInvalidInput(input)
-
         }
     }
 
