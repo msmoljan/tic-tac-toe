@@ -76,11 +76,14 @@ class Cli : Game.GameListener {
     }
 
     private fun playField(row: Int, column: Int) {
-        val field = game.logBoard().replace("\n", "").get(((row - 1) * 3) + (column - 1))
+        val fieldIndex = ((row - 1) * 3) + (column - 1)
+        val field = game.logBoard().replace("\n", "")[fieldIndex]
 
         if (field != '.') {
             screenUpdateListener?.onScreenUpdate(
-                game.logBoard() + "\n\nCannot play the same field twice! It's ${game.currentPlayer}'s turn\n" + INSTRUCTION_TEXT
+                game.logBoard()
+                    .plus("\n\nCannot play the same field twice! It's ${game.currentPlayer}'s turn\n")
+                    .plus(INSTRUCTION_TEXT)
             )
         } else {
             game.play(row, column)
