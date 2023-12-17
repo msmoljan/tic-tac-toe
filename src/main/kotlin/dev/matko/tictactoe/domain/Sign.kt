@@ -5,9 +5,13 @@ enum class Sign {
 
     companion object {
         fun from(signAsString: String): Sign {
-            return values()
+            return entries
                 .firstOrNull { signAsString.uppercase() == it.name }
                 ?: throw IllegalArgumentException("Expected one of the Sign enum values, but was $signAsString instead.")
         }
+    }
+
+    override fun toString(): String {
+        return this.name
     }
 }

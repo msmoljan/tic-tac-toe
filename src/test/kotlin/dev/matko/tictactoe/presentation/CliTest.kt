@@ -149,7 +149,7 @@ class CliTest {
     }
 
     @Test
-    fun `Display message after winning`() {
+    fun `Display proper message after X wins`() {
         this.cli.processInput("1,1")
         this.cli.processInput("1,2")
         this.cli.processInput("2,2")
@@ -157,6 +157,18 @@ class CliTest {
         this.cli.processInput("3,3")
 
         assertEquals("XOO\n.X.\n..X\n\nGame finished: X won!\n\n$INSTRUCTION_TEXT\n", getCurrentScreen())
+    }
+
+    @Test
+    fun `Display proper message after O wins`() {
+        this.cli.processInput("1,2")
+        this.cli.processInput("1,1")
+        this.cli.processInput("2,1")
+        this.cli.processInput("2,2")
+        this.cli.processInput("3,1")
+        this.cli.processInput("3,3")
+
+        assertEquals("OX.\nXO.\nX.O\n\nGame finished: O won!\n\n$INSTRUCTION_TEXT\n", getCurrentScreen())
     }
 
     @Test
