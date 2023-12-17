@@ -24,42 +24,35 @@ class Cli : Game.GameListener {
         val input = input.replace(regex = Regex("\\s"), replacement = "")
 
         when {
-            input.matches(Regex("[1-3],[1-3]")) -> {
-                if (game.isFinished) {
-                    screenUpdateListener?.onScreenUpdate(
-                        game
-                            .logBoard()
-                            .plus("\n\nCannot play after the game has been won! Enter 'R' to restart or 'Q' to quit.\n")
-                    )
-                } else {
-                    val (row, column) = input.split(",").map { it.toInt() }
-                    val field = game.logBoard().replace("\n", "").get(((row - 1) * 3) + (column - 1))
-
-                    if (field != '.') {
-                        screenUpdateListener?.onScreenUpdate(
-                            game.logBoard() + "\n\nCannot play the same field twice! It's ${game.currentPlayer}'s turn\n" + INSTRUCTION_TEXT
-                        )
-                    } else {
-                        game.play(row, column)
-                    }
-                }
-            }
-
-            "q" == input.lowercase() -> {
-                screenUpdateListener?.onScreenUpdate("Goodbye!\n")
-                screenUpdateListener?.onQuit()
-            }
-
+            "[1-3],[1-3]".let { input.matches(Regex(it)) } -> parseCoordinatesAndPlay(input)
+            "q" == input.lowercase() -> notifyWithGoodbyeAndQuit()
             "r" == input.lowercase() -> game.reset()
+            "" == input -> refreshScreen()
+            else -> notifyAboutInvalidInput(input)
 
-            "" == input -> {
-                screenUpdateListener?.onScreenUpdate(game.logBoard() + "\n" + INSTRUCTION_TEXT)
-            }
-
-            else -> {
-                screenUpdateListener?.onScreenUpdate(game.logBoard() + "\nInvalid input: \"$input\".\n" + INSTRUCTION_TEXT)
-            }
         }
+    }
+
+    private fun parseCoordinatesAndPlay(input: String) {
+        if (game.isFinished) {
+            notifyAboutPlayingAfterFinishedGame()
+        } else {
+            val (row, column) = input.split(",").map { it.toInt() }
+            playField(row, column)
+        }
+    }
+
+    private fun notifyWithGoodbyeAndQuit() {
+        screenUpdateListener?.onScreenUpdate("Goodbye!\n")
+        screenUpdateListener?.onQuit()
+    }
+
+    private fun refreshScreen() {
+        screenUpdateListener?.onScreenUpdate(game.logBoard() + "\n" + INSTRUCTION_TEXT)
+    }
+
+    private fun notifyAboutInvalidInput(input: String) {
+        screenUpdateListener?.onScreenUpdate(game.logBoard() + "\nInvalid input: \"$input\".\n" + INSTRUCTION_TEXT)
     }
 
     fun setScreenUpdateListener(screenUpdateListener: ScreenUpdateListener?) {
@@ -73,5 +66,25 @@ class Cli : Game.GameListener {
 
     override fun onGameChanged() {
         screenUpdateListener?.onScreenUpdate(game.logBoard() + "\n\nIt's ${game.currentPlayer}'s turn\n" + INSTRUCTION_TEXT)
+    }
+
+    private fun notifyAboutPlayingAfterFinishedGame() {
+        screenUpdateListener?.onScreenUpdate(
+            game
+                .logBoard()
+                .plus("\n\nCannot play after the game has been won! Enter 'R' to restart or 'Q' to quit.\n")
+        )
+    }
+
+    private fun playField(row: Int, column: Int) {
+        val field = game.logBoard().replace("\n", "").get(((row - 1) * 3) + (column - 1))
+
+        if (field != '.') {
+            screenUpdateListener?.onScreenUpdate(
+                game.logBoard() + "\n\nCannot play the same field twice! It's ${game.currentPlayer}'s turn\n" + INSTRUCTION_TEXT
+            )
+        } else {
+            game.play(row, column)
+        }
     }
 }
