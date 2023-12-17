@@ -1,4 +1,5 @@
 Done:
+- Show player on screen refresh
 - Prevent exception thrown in CLI when a played field is played again
 - Add Cli to the "main" function
 - Fix incorrect display of winner (always shows X no matter who won)

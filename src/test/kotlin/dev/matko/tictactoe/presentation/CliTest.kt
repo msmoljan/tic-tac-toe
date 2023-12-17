@@ -106,7 +106,7 @@ class CliTest {
         this.cli.processInput("h")
         this.cli.processInput("")
 
-        assertEquals("...\n.X.\n...\n\n$INSTRUCTION_TEXT\n", getCurrentScreen())
+        assertEquals("...\n.X.\n...\n\nIt's O's turn\n\n$INSTRUCTION_TEXT\n", getCurrentScreen())
     }
 
     @Test

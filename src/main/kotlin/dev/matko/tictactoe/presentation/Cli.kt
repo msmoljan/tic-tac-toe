@@ -47,7 +47,7 @@ class Cli : Game.GameListener {
     }
 
     private fun refreshScreen() {
-        screenUpdateListener?.onScreenUpdate(game.logBoard() + "\n" + INSTRUCTION_TEXT)
+        screenUpdateListener?.onScreenUpdate(game.logBoard() + "\n\nIt's ${game.currentPlayer}'s turn\n" + INSTRUCTION_TEXT)
     }
 
     private fun notifyAboutInvalidInput(input: String) {
@@ -64,7 +64,7 @@ class Cli : Game.GameListener {
     }
 
     override fun onGameChanged() {
-        screenUpdateListener?.onScreenUpdate(game.logBoard() + "\n\nIt's ${game.currentPlayer}'s turn\n" + INSTRUCTION_TEXT)
+        refreshScreen()
     }
 
     private fun notifyAboutPlayingAfterFinishedGame() {
