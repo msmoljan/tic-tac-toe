@@ -172,6 +172,17 @@ class CliTest {
     }
 
     @Test
+    fun `Display proper message when the same field is played twice`() {
+        this.cli.processInput("1,1")
+        this.cli.processInput("1,1")
+
+        assertEquals(
+            "X..\n...\n...\n\nCannot play the same field twice! It's O's turn\n\n$INSTRUCTION_TEXT\n",
+            getCurrentScreen()
+        )
+    }
+
+    @Test
     fun `Display current player`() {
         this.cli.processInput("1,1")
 

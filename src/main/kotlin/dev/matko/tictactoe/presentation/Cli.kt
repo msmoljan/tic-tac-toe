@@ -33,7 +33,15 @@ class Cli : Game.GameListener {
                     )
                 } else {
                     val (row, column) = input.split(",").map { it.toInt() }
-                    game.play(row, column)
+                    val field = game.logBoard().replace("\n", "").get(((row - 1) * 3) + (column - 1))
+
+                    if (field != '.') {
+                        screenUpdateListener?.onScreenUpdate(
+                            game.logBoard() + "\n\nCannot play the same field twice! It's ${game.currentPlayer}'s turn\n" + INSTRUCTION_TEXT
+                        )
+                    } else {
+                        game.play(row, column)
+                    }
                 }
             }
 

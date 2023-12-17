@@ -1,7 +1,7 @@
-ToDo:
-- Add Cli to the "main" function
-
 Done:
+- Prevent exception thrown in CLI when a played field is played again
+- Add Cli to the "main" function
+- Fix incorrect display of winner (always shows X no matter who won)
 - Show coordinate, Q and R instructions during gameplay
 - Show current player
 - Show victory message when the game is won
