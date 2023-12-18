@@ -1,4 +1,4 @@
-# Tic-Tac-Toe
+# Test-Driven-Tic-Tac-Toe
 
 This is an example Tic-Tac-Toe implementation for demonstrating TDD. 
 
