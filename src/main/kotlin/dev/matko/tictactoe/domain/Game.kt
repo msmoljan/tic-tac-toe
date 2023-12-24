@@ -11,6 +11,7 @@ class Game(private val gameListener: GameListener? = null) {
     interface GameListener {
         fun onVictory(sign: Sign)
         fun onGameChanged()
+        fun onDraw()
     }
 
     var currentPlayer = Sign.X
@@ -44,6 +45,8 @@ class Game(private val gameListener: GameListener? = null) {
         if (hasWon(currentPlayer)) {
             this.winner = currentPlayer
             gameListener?.onVictory(currentPlayer)
+        } else if (isDraw()) {
+            gameListener?.onDraw()
         } else {
             currentPlayer = if (currentPlayer == Sign.X) Sign.O else Sign.X
             gameListener?.onGameChanged()
@@ -77,6 +80,8 @@ class Game(private val gameListener: GameListener? = null) {
             getRightToLeftDiagonal(),
         ).any { it == signAsString.repeat(3) }
     }
+
+    private fun isDraw() = board.none { it == '.' }
 
     private fun getRow(row: Int): String {
         return when (row) {

@@ -7,9 +7,16 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import kotlin.test.assertTrue
 
 @DisplayName("Gameplay tests")
 class GameTest {
+
+    private open class NoOpGameListener : Game.GameListener {
+        override fun onGameChanged() = Unit
+        override fun onVictory(sign: Sign) = Unit
+        override fun onDraw() = Unit
+    }
 
     @Test
     fun `A player can add an X to a field`() {
@@ -22,7 +29,7 @@ class GameTest {
 
     @Test
     fun `The game is won if the first row is all in the same sign`() {
-        val gameListener = object : Game.GameListener {
+        val gameListener = object : NoOpGameListener() {
             var xWins = 0
 
             override fun onVictory(sign: Sign) {
@@ -30,8 +37,6 @@ class GameTest {
                     xWins++
                 }
             }
-
-            override fun onGameChanged() = Unit
         }
         val game = Game(gameListener)
 
@@ -46,7 +51,7 @@ class GameTest {
 
     @Test
     fun `The game is won if the second row is all in the same sign`() {
-        val gameListener = object : Game.GameListener {
+        val gameListener = object : NoOpGameListener() {
             var xWins = 0
 
             override fun onVictory(sign: Sign) {
@@ -54,8 +59,6 @@ class GameTest {
                     xWins++
                 }
             }
-
-            override fun onGameChanged() = Unit
         }
         val game = Game(gameListener)
 
@@ -70,7 +73,7 @@ class GameTest {
 
     @Test
     fun `The game is won if the third row is all in the same sign`() {
-        val gameListener = object : Game.GameListener {
+        val gameListener = object : NoOpGameListener() {
             var xWins = 0
 
             override fun onVictory(sign: Sign) {
@@ -78,8 +81,6 @@ class GameTest {
                     xWins++
                 }
             }
-
-            override fun onGameChanged() = Unit
         }
         val game = Game(gameListener)
 
@@ -94,7 +95,7 @@ class GameTest {
 
     @Test
     fun `The game is won if the first column is all in the same sign`() {
-        val gameListener = object : Game.GameListener {
+        val gameListener = object : NoOpGameListener() {
             var xWins = 0
 
             override fun onVictory(sign: Sign) {
@@ -102,8 +103,6 @@ class GameTest {
                     xWins++
                 }
             }
-
-            override fun onGameChanged() = Unit
         }
         val game = Game(gameListener)
 
@@ -118,7 +117,7 @@ class GameTest {
 
     @Test
     fun `The game is won if the second column is all in the same sign`() {
-        val gameListener = object : Game.GameListener {
+        val gameListener = object : NoOpGameListener() {
             var xWins = 0
 
             override fun onVictory(sign: Sign) {
@@ -126,8 +125,6 @@ class GameTest {
                     xWins++
                 }
             }
-
-            override fun onGameChanged() = Unit
         }
         val game = Game(gameListener)
 
@@ -142,7 +139,7 @@ class GameTest {
 
     @Test
     fun `The game is won if the third column is all in the same sign`() {
-        val gameListener = object : Game.GameListener {
+        val gameListener = object : NoOpGameListener() {
             var xWins = 0
 
             override fun onVictory(sign: Sign) {
@@ -150,8 +147,6 @@ class GameTest {
                     xWins++
                 }
             }
-
-            override fun onGameChanged() = Unit
         }
         val game = Game(gameListener)
 
@@ -166,7 +161,7 @@ class GameTest {
 
     @Test
     fun `The game is won if the left-to-right diagonal is all in the same sign`() {
-        val gameListener = object : Game.GameListener {
+        val gameListener = object : NoOpGameListener() {
             var xWins = 0
 
             override fun onVictory(sign: Sign) {
@@ -174,8 +169,6 @@ class GameTest {
                     xWins++
                 }
             }
-
-            override fun onGameChanged() = Unit
         }
         val game = Game(gameListener)
 
@@ -190,7 +183,7 @@ class GameTest {
 
     @Test
     fun `The game is won if the right-to-left diagonal is all in the same sign`() {
-        val gameListener = object : Game.GameListener {
+        val gameListener = object : NoOpGameListener() {
             var xWins = 0
 
             override fun onVictory(sign: Sign) {
@@ -198,8 +191,6 @@ class GameTest {
                     xWins++
                 }
             }
-
-            override fun onGameChanged() = Unit
         }
         val game = Game(gameListener)
 
@@ -294,5 +285,26 @@ class GameTest {
         game.play(row = 2, column = 1)
 
         assertEquals("...\nX..\n...", game.logBoard())
+    }
+
+    @Test
+    fun `The game should notify its listener when it ends in a draw`() {
+        val gameListener = object : NoOpGameListener() {
+            var isDraw = false
+            override fun onDraw() { this.isDraw = true }
+        }
+        val game = Game(gameListener)
+
+        game.play(row = 1, column = 2)
+        game.play(row = 1, column = 1)
+        game.play(row = 2, column = 1)
+        game.play(row = 1, column = 3)
+        game.play(row = 2, column = 3)
+        game.play(row = 2, column = 2)
+        game.play(row = 3, column = 1)
+        game.play(row = 3, column = 2)
+        game.play(row = 3, column = 3)
+
+        assertTrue(gameListener.isDraw)
     }
 }

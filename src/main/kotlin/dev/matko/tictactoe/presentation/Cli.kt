@@ -12,12 +12,8 @@ class Cli : Game.GameListener {
         fun onQuit()
     }
 
-    private var game: Game
+    private var game: Game = Game(gameListener = this)
     private var screenUpdateListener: ScreenUpdateListener? = null
-
-    init {
-        this.game = Game(gameListener = this)
-    }
 
     @Suppress("NAME_SHADOWING")
     fun processInput(input: String) {
@@ -65,6 +61,10 @@ class Cli : Game.GameListener {
 
     override fun onGameChanged() {
         refreshScreen()
+    }
+
+    override fun onDraw() {
+        TODO("Not yet implemented")
     }
 
     private fun notifyAboutPlayingAfterFinishedGame() {
