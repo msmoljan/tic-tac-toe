@@ -1,7 +1,8 @@
 To do: 
-- CLI should show proper response when the game has ended in a draw
+< nothing at the moment >
 
 Done:
+- CLI should show proper response when the game has ended in a draw
 - Notify players if the game is undecided (all fields have been played, but there is no winner)
 - Show player on screen refresh
 - Prevent exception thrown in CLI when a played field is played again
