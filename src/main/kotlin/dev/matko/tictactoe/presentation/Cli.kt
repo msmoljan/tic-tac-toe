@@ -64,7 +64,7 @@ class Cli : Game.GameListener {
     }
 
     override fun onDraw() {
-        TODO("Not yet implemented")
+        screenUpdateListener?.onScreenUpdate(game.logBoard() + "\n\nThe game ended in a draw.\n" + INSTRUCTION_TEXT)
     }
 
     private fun notifyAboutPlayingAfterFinishedGame() {
