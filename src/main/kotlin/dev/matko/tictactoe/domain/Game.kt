@@ -20,9 +20,7 @@ class Game(private val gameListener: GameListener? = null) {
 
     private var board: String = INITIAL_BOARD
     private var winner: Sign? = null
-
-    var hasEndedInDraw = false
-        private set
+    private var hasEndedInDraw = false
 
     var isFinished: Boolean
         get() = winner != null

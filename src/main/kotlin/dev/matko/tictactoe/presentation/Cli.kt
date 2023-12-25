@@ -3,6 +3,7 @@ package dev.matko.tictactoe.presentation
 import dev.matko.tictactoe.domain.Game
 import dev.matko.tictactoe.domain.Sign
 import dev.matko.tictactoe.domain.exceptions.CannotPlayAfterDrawException
+import dev.matko.tictactoe.domain.exceptions.FieldAlreadyPlayedException
 
 private const val INSTRUCTION_TEXT = "\nEnter <ROW>,<COLUMN> (e.g. \"1,3\") to play, Q to quit, R to reset:\n"
 
@@ -83,22 +84,16 @@ class Cli : Game.GameListener {
     }
 
     private fun playField(row: Int, column: Int) {
-        val fieldIndex = ((row - 1) * 3) + (column - 1)
-        val field = game.logBoard().replace("\n", "")[fieldIndex]
-
-        if (game.hasEndedInDraw) {
-            onDraw()
-            return
-        }
-
-        if (field != '.') {
+        try {
+            game.play(row, column)
+        } catch (exception: FieldAlreadyPlayedException) {
             screenUpdateListener?.onScreenUpdate(
                 game.logBoard()
                     .plus("\n\nCannot play the same field twice! It's ${game.currentPlayer}'s turn\n")
                     .plus(INSTRUCTION_TEXT)
             )
-        } else {
-            game.play(row, column)
+        } catch (exception: CannotPlayAfterDrawException) {
+            onDraw()
         }
     }
 }
