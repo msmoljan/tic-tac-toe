@@ -2,6 +2,7 @@ package dev.matko.tictactoe.presentation
 
 import dev.matko.tictactoe.domain.Game
 import dev.matko.tictactoe.domain.Sign
+import dev.matko.tictactoe.domain.exceptions.CannotPlayAfterDrawException
 
 private const val INSTRUCTION_TEXT = "\nEnter <ROW>,<COLUMN> (e.g. \"1,3\") to play, Q to quit, R to reset:\n"
 
@@ -31,9 +32,15 @@ class Cli : Game.GameListener {
     private fun parseCoordinatesAndPlay(input: String) {
         if (game.isFinished) {
             notifyAboutPlayingAfterFinishedGame()
-        } else {
-            val (row, column) = input.split(",").map { it.toInt() }
+            return
+        }
+
+        val (row, column) = input.split(",").map { it.toInt() }
+
+        try {
             playField(row, column)
+        } catch (exception: CannotPlayAfterDrawException) {
+            onDraw()
         }
     }
 
@@ -78,6 +85,11 @@ class Cli : Game.GameListener {
     private fun playField(row: Int, column: Int) {
         val fieldIndex = ((row - 1) * 3) + (column - 1)
         val field = game.logBoard().replace("\n", "")[fieldIndex]
+
+        if (game.hasEndedInDraw) {
+            onDraw()
+            return
+        }
 
         if (field != '.') {
             screenUpdateListener?.onScreenUpdate(

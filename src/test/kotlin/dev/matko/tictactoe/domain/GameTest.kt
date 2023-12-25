@@ -1,5 +1,6 @@
 package dev.matko.tictactoe.domain
 
+import dev.matko.tictactoe.domain.exceptions.CannotPlayAfterDrawException
 import dev.matko.tictactoe.domain.exceptions.CannotPlayAfterFinishedGameException
 import dev.matko.tictactoe.domain.exceptions.FieldAlreadyPlayedException
 import dev.matko.tictactoe.domain.exceptions.NonexistentFieldException
@@ -291,7 +292,9 @@ class GameTest {
     fun `The game should notify its listener when it ends in a draw`() {
         val gameListener = object : NoOpGameListener() {
             var isDraw = false
-            override fun onDraw() { this.isDraw = true }
+            override fun onDraw() {
+                this.isDraw = true
+            }
         }
         val game = Game(gameListener)
 
@@ -306,5 +309,55 @@ class GameTest {
         game.play(row = 3, column = 3)
 
         assertTrue(gameListener.isDraw)
+    }
+
+    @Test
+    fun `The game should throw if an attempt at play is made after a draw`() {
+        val gameListener = object : NoOpGameListener() {
+            var isDraw = false
+            override fun onDraw() {
+                this.isDraw = true
+            }
+        }
+        val game = Game(gameListener)
+
+        game.play(row = 1, column = 2)
+        game.play(row = 1, column = 1)
+        game.play(row = 2, column = 1)
+        game.play(row = 1, column = 3)
+        game.play(row = 2, column = 3)
+        game.play(row = 2, column = 2)
+        game.play(row = 3, column = 1)
+        game.play(row = 3, column = 2)
+        game.play(row = 3, column = 3)
+
+        assertThrows<CannotPlayAfterDrawException> {
+            game.play(row = 3, column = 3)
+        }
+    }
+
+    @Test
+    fun `The game can be played again if it's reset after a draw`() {
+        val gameListener = object : NoOpGameListener() {
+            var isDraw = false
+            override fun onDraw() {
+                this.isDraw = true
+            }
+        }
+        val game = Game(gameListener)
+
+        game.play(row = 1, column = 2)
+        game.play(row = 1, column = 1)
+        game.play(row = 2, column = 1)
+        game.play(row = 1, column = 3)
+        game.play(row = 2, column = 3)
+        game.play(row = 2, column = 2)
+        game.play(row = 3, column = 1)
+        game.play(row = 3, column = 2)
+        game.play(row = 3, column = 3)
+        game.reset()
+        game.play(row = 1, column = 1)
+        
+        assertEquals("X..\n...\n...", game.logBoard())
     }
 }

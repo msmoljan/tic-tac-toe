@@ -204,6 +204,22 @@ class CliTest {
         assertEquals("OXO\nXOX\nXOX\n\nThe game ended in a draw.\n\n$INSTRUCTION_TEXT\n", getCurrentScreen())
     }
 
+    @Test
+    fun `Keep showing the draw message when the player tries to play after a draw`() {
+        cli.processInput("1,2")
+        cli.processInput("1,1")
+        cli.processInput("2,1")
+        cli.processInput("1,3")
+        cli.processInput("2,3")
+        cli.processInput("2,2")
+        cli.processInput("3,1")
+        cli.processInput("3,2")
+        cli.processInput("3,3")
+        cli.processInput("1,1")
+
+        assertEquals("OXO\nXOX\nXOX\n\nThe game ended in a draw.\n\n$INSTRUCTION_TEXT\n", getCurrentScreen())
+    }
+
     private fun getCurrentScreen(): String {
         return screenUpdateMemorizer.latestScreenState
     }

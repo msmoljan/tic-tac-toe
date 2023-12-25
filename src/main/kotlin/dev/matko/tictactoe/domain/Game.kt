@@ -1,5 +1,6 @@
 package dev.matko.tictactoe.domain
 
+import dev.matko.tictactoe.domain.exceptions.CannotPlayAfterDrawException
 import dev.matko.tictactoe.domain.exceptions.CannotPlayAfterFinishedGameException
 import dev.matko.tictactoe.domain.exceptions.FieldAlreadyPlayedException
 import dev.matko.tictactoe.domain.exceptions.NonexistentFieldException
@@ -20,6 +21,9 @@ class Game(private val gameListener: GameListener? = null) {
     private var board: String = INITIAL_BOARD
     private var winner: Sign? = null
 
+    var hasEndedInDraw = false
+        private set
+
     var isFinished: Boolean
         get() = winner != null
         private set(_) = throw IllegalStateException("This should not be callable")
@@ -29,6 +33,8 @@ class Game(private val gameListener: GameListener? = null) {
         if (row < 1 || column < 1 || row > 3 || column > 3) {
             throw NonexistentFieldException(row, column)
         }
+
+        if (hasEndedInDraw) throw CannotPlayAfterDrawException()
 
         val existingSignAtField = getSign(row, column)
         if (existingSignAtField != ".") {
@@ -45,7 +51,8 @@ class Game(private val gameListener: GameListener? = null) {
         if (hasWon(currentPlayer)) {
             this.winner = currentPlayer
             gameListener?.onVictory(currentPlayer)
-        } else if (isDraw()) {
+        } else if (isBoardFull()) {
+            this.hasEndedInDraw = true
             gameListener?.onDraw()
         } else {
             currentPlayer = if (currentPlayer == Sign.X) Sign.O else Sign.X
@@ -63,6 +70,8 @@ class Game(private val gameListener: GameListener? = null) {
         this.board = INITIAL_BOARD
         this.currentPlayer = Sign.X
         this.winner = null
+        this.hasEndedInDraw = false
+
         gameListener?.onGameChanged()
     }
 
@@ -81,7 +90,7 @@ class Game(private val gameListener: GameListener? = null) {
         ).any { it == signAsString.repeat(3) }
     }
 
-    private fun isDraw() = board.none { it == '.' }
+    private fun isBoardFull() = board.none { it == '.' }
 
     private fun getRow(row: Int): String {
         return when (row) {
